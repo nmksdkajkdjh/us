@@ -148,6 +148,7 @@
 
     let useApiSource = false;
     let adminKeyForApi = '';
+    let cachedApps = [];
 
     async function loadApplications() {
         const apiBase = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.api) ? APP_CONFIG.api.base : '';
@@ -169,6 +170,7 @@
         if (!useApiSource) {
             apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
         }
+        cachedApps = apps;
         const tbody = document.getElementById('appTable');
         tbody.innerHTML = '';
 
@@ -214,7 +216,7 @@
     }
 
     function showDetail(index) {
-        const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        const apps = cachedApps.length ? cachedApps : JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
         const app = apps[index];
         document.getElementById('modalName').textContent = `${app.firstName || ''} ${app.lastName || ''}`.trim() || '申請詳情';
         const paymentData = app.paymentData || {};
