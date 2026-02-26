@@ -43,8 +43,12 @@
 | `config.local.js` | 部署覆蓋（API Key 等） |
 | `_headers` | 安全標頭（XSS、點擊劫持防護） |
 
-## 四、注意事項
+## 四、後端與資料持久化
 
-- **後端 API**：若需 `/api/applications/store`，需另行部署 Node 後端（如 Cloudflare Workers、Vercel、Railway）並在 `config.local.js` 設定 `api.base`
+- **完整模式**：需另行部署 Node 後端（MongoDB），詳見 [DEPLOY_BACKEND.md](DEPLOY_BACKEND.md)
+- **後端部署後**：在 `config.local.js` 設定 `api.base` 為後端 URL，表單資料會寫入 MongoDB，管理端從 API 拉取並持久化顯示
 - **純靜態模式**：無後端時，表單資料僅存於 `localStorage`，管理端與申請頁需同源
+
+## 五、注意事項
+
 - **HTTPS**：Cloudflare Pages 預設啟用 HTTPS

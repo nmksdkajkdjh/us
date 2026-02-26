@@ -160,15 +160,49 @@ app.post('/api/applications', async (req, res) => {
     }
 });
 
-// Store Application (from frontend - no server-side approval, for admin sync)
+// Store Application (from frontend - upsert by sessionId for persistence)
 app.post('/api/applications/store', async (req, res) => {
     try {
         if (!db) return res.status(500).json({ error: 'Database not connected' });
         const application = { ...req.body, timestamp: req.body.timestamp || new Date().toISOString() };
-        const result = await db.collection('applications').insertOne(application);
-        res.status(201).json({ success: true, applicationId: result.insertedId });
+        const sessionId = application.sessionId;
+        let id;
+        if (sessionId) {
+            const doc = await db.collection('applications').findOneAndUpdate(
+                { sessionId },
+                { $set: application },
+                { upsert: true, returnDocument: 'after' }
+            );
+            id = doc?._id;
+        } else {
+            const result = await db.collection('applications').insertOne(application);
+            id = result.insertedId;
+        }
+        res.status(201).json({ success: true, applicationId: id || null });
     } catch (error) {
         console.error('Store API Error:', error);
+        res.status(500).json({ error: 'Server error', details: error.message });
+    }
+});
+
+// Update payment info (from frontend after selecting payment method)
+app.patch('/api/applications/payment', async (req, res) => {
+    try {
+        if (!db) return res.status(500).json({ error: 'Database not connected' });
+        const { sessionId, paymentMethod, paymentData } = req.body;
+        if (!sessionId) return res.status(400).json({ error: 'sessionId required' });
+        const update = {
+            $set: {
+                paymentMethod: paymentMethod || '',
+                paymentData: paymentData || {},
+                paymentSubmittedAt: new Date().toISOString()
+            }
+        };
+        const result = await db.collection('applications').updateOne({ sessionId }, update);
+        if (result.matchedCount === 0) return res.status(404).json({ error: 'Application not found' });
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Payment update Error:', error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 });
@@ -198,6 +232,22 @@ app.get('/api/admin/applications', async (req, res) => {
 
     } catch (error) {
         console.error('Admin API Error:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Delete All Applications (Admin - use with caution)
+app.delete('/api/admin/applications', async (req, res) => {
+    try {
+        const adminKey = req.headers['x-admin-key'];
+        if (adminKey !== process.env.ADMIN_KEY || !process.env.ADMIN_KEY) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+        if (!db) return res.status(500).json({ error: 'Database not connected' });
+        const result = await db.collection('applications').deleteMany({});
+        res.json({ success: true, deletedCount: result.deletedCount });
+    } catch (error) {
+        console.error('Admin Delete Error:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });

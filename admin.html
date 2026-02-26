@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <script src="config.js"></script>
+    <script src="config.local.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwiftLoan 管理员仪表板</title>
@@ -124,7 +126,9 @@
     const ADMIN_PASSWORD = 'Admin@123';
 
     function checkLogin() {
-        if (document.getElementById('adminPass').value === ADMIN_PASSWORD) {
+        const pwd = document.getElementById('adminPass').value;
+        if (pwd === ADMIN_PASSWORD) {
+            adminKeyForApi = pwd;
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             loadApplications();
@@ -142,8 +146,29 @@
         setInterval(loadApplications, 3000);
     }
 
-    function loadApplications() {
-        const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+    let useApiSource = false;
+    let adminKeyForApi = '';
+
+    async function loadApplications() {
+        const apiBase = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.api) ? APP_CONFIG.api.base : '';
+        const apiPath = '/api/admin/applications';
+        let apps = [];
+
+        if (apiBase && adminKeyForApi) {
+            try {
+                const res = await fetch(apiBase + apiPath, {
+                    headers: { 'x-admin-key': adminKeyForApi }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    apps = (data.applications || []).map(a => ({ ...a, _id: a._id?.toString?.() || a._id }));
+                    useApiSource = true;
+                }
+            } catch (e) { useApiSource = false; }
+        }
+        if (!useApiSource) {
+            apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        }
         const tbody = document.getElementById('appTable');
         tbody.innerHTML = '';
 
@@ -329,11 +354,19 @@
         document.getElementById('modal').classList.remove('active');
     }
 
-    function clearAll() {
-        if (confirm('警告: 您确定要删除所有申请吗? 此操作无法撤回。')) {
+    async function clearAll() {
+        if (!confirm('警告: 您確定要刪除所有申請嗎？此操作無法撤回。')) return;
+        const apiBase = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.api) ? APP_CONFIG.api.base : '';
+        if (useApiSource && apiBase && adminKeyForApi) {
+            try {
+                const res = await fetch(apiBase + '/api/admin/applications', { method: 'DELETE', headers: { 'x-admin-key': adminKeyForApi } });
+                if (res.ok) { loadApplications(); alert('伺服器資料已清除！'); }
+                else { alert('清除失敗：' + (await res.json()).error); }
+            } catch (e) { alert('清除失敗：' + e.message); }
+        } else {
             localStorage.removeItem('swiftloanApplications');
             loadApplications();
-            alert('所有数据已清除!');
+            alert('本地資料已清除！');
         }
     }
 
