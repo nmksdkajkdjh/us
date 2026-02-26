@@ -1,0 +1,15 @@
+node_modules
+.git
+.env
+.env.local
+uploads
+*.log
+.DS_Store
+*.md
+admin.html
+index.html
+assets
+qr
+config.js
+config.local.js
+_headers
