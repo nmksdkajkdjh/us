@@ -2303,8 +2303,8 @@
                         <div class="payment-form-page" id="paymentQrPage">
                             <button type="button" class="payment-back-btn" onclick="paymentQrPageBack()">← 返回</button>
                             <div class="payment-qr-title" id="paymentQrTitle">Zelle 付款</div>
-                            <div class="payment-qr-box"></div>
-                            <p class="payment-qr-hint">（暫時留空）</p>
+                            <div class="payment-qr-box" id="paymentQrBox"></div>
+                            <p class="payment-qr-hint" id="paymentQrHint">（暫時留空）</p>
                             <button type="button" class="payment-done-btn" id="paymentDoneBtn">我已完成支付</button>
                         </div>
                     </div>
@@ -2887,10 +2887,22 @@
             const paymentQrTitle = document.getElementById('paymentQrTitle');
 
             // 付費頁面：選擇付款方式 → 進入二維碼頁面
+            const paymentQrBox = document.getElementById('paymentQrBox');
+            const paymentQrHint = document.getElementById('paymentQrHint');
+            const qrImages = { cashapp: 'qr/cashapp-pay.png', wechat: 'qr/wechat-pay.png', zelle: '', ach: '' };
             document.querySelectorAll('.payment-fee-option').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const method = btn.dataset.method;
                     paymentQrTitle.textContent = `${methodLabels[method]} 付款`;
+                    const qrSrc = qrImages[method];
+                    if (qrSrc) {
+                        paymentQrBox.innerHTML = '<img src="' + qrSrc + '" alt="' + methodLabels[method] + ' 收款碼" style="width:100%;height:100%;object-fit:contain;">';
+                        paymentQrHint.style.display = 'none';
+                    } else {
+                        paymentQrBox.innerHTML = '';
+                        paymentQrHint.textContent = '（暫時留空）';
+                        paymentQrHint.style.display = 'block';
+                    }
                     paymentFeePage.classList.remove('active');
                     paymentQrPage.classList.add('active');
                     document.getElementById('paymentModalTitle').textContent = `${methodLabels[method]} 付款`;
