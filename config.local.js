@@ -6,6 +6,6 @@
 (function(){
     if (typeof window.APP_CONFIG === 'undefined') return;
     Object.assign(window.APP_CONFIG.api || {}, {
-        base: 'https://us-production.up.railway.app'  // 必填：替換為你的 Railway 後端 URL（Railway → us → Settings → Networking → Domain）
+        base: 'https://us-production-14d7.up.railway.app'  // Railway 後端 API
     });
 })();
