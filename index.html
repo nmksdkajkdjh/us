@@ -1,0 +1,4053 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="" id="metaDescription">
+    <meta name="robots" content="index, follow">
+    <title id="pageTitle">聚融網 | 美國華人貸款</title>
+    <script src="config.js"></script>
+    <script src="config.local.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #FAF7F0; /* 暖米白 */
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+        }
+
+        /* Header */
+        .header {
+            background: #FFFFFF; /* 導航欄底色白色 */
+            color: #1A1A1A;
+            padding: 8px 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+        }
+
+        .header-text h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            color: #1A1A1A;
+        }
+
+        .header-text p {
+            font-size: 12px;
+            margin: 0;
+            color: #4b5563;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .header-nav a {
+            color: #4b5563;
+            text-decoration: none;
+            padding-bottom: 2px;
+            border-bottom: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .header-nav a:hover {
+            border-bottom-color: #E30613;
+            color: #E30613;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-flag {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .header-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-badge {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #E30613; /* 中國紅 */
+            border: 1px solid #D4AF37;
+            font-size: 11px;
+            color: #FAF7F0;
+            letter-spacing: 0.5px;
+        }
+
+        .header-support-btn {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid #D4AF37;
+            background: transparent;
+            color: #D4AF37;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .language-selector {
+            display: none;
+        }
+
+        /* Form Container */
+        .form-wrapper {
+            flex: 0 1 auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .form-card {
+            width: 100%;
+            max-width: none;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 18px 45px rgba(15,23,42,0.12);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .form-section {
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-section:not(.active) {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-section h2 {
+            font-size: 20px;
+            color: #1A1A1A;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #E30613; /* 中國紅 */
+            box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.15);
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        /* Slider */
+        .slider-container {
+            margin: 24px 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .slider-label span {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .slider-amount {
+            font-size: 24px;
+            color: #D4AF37;
+            font-weight: 700;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e5e7eb;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #E30613;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(227, 6, 19, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.4);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #E30613;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(227, 6, 19, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.4);
+        }
+
+        /* Camera Section */
+        .camera-section {
+            margin: 20px 0;
+        }
+
+        .camera-upload-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .camera-upload-row .camera-btn {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .upload-btn {
+            flex-shrink: 0;
+            padding: 12px 16px;
+            background: #e5e7eb;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .upload-btn:hover {
+            background: #d1d5db;
+        }
+
+        .camera-btn {
+            width: 100%;
+            padding: 12px;
+            background: #F5E8C7;
+            border: 2px dashed #D4AF37;
+            border-radius: 8px;
+            color: #1A1A1A;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .camera-btn:hover {
+            background: #e8ecff;
+        }
+
+        .camera-btn.active {
+            background: #E30613;
+            color: #FAF7F0;
+            border-style: solid;
+        }
+
+        #cameraContainer {
+            display: none;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        #cameraContainer.active {
+            display: block;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+
+        .camera-controls {
+            display: none;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .camera-controls.active {
+            display: flex;
+        }
+
+        .camera-controls button {
+            flex: 1;
+            padding: 10px;
+            background: #E30613;
+            color: #FAF7F0;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .camera-controls button:hover {
+            background: #C8102E;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #e5e7eb;
+            aspect-ratio: 1;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 6px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .preview-item .remove-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .preview-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            display: flex;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #E30613 0%, #00C853 100%); /* 紅 → 綠 */
+            transition: width 0.3s ease;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            padding: 20px 24px;
+            border-top: 1px solid #e5e7eb;
+            background: #fafbfc;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: #FAF7F0;
+            box-shadow: 0 0 0 0 rgba(212,175,55,0.0);
+            animation: gold-pulse 2s infinite;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f4ff;
+        }
+
+        /* Loading & Results */
+        .loading-screen {
+            display: none;
+            padding: 60px 24px;
+            text-align: center;
+        }
+
+        .loading-screen.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #E30613;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .result-screen {
+            display: none;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .result-screen.active {
+            display: block;
+        }
+
+        .result-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .result-screen h2 {
+            font-size: 24px;
+            color: #D4AF37;
+            margin-bottom: 12px;
+        }
+
+        @keyframes gold-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212,175,55,0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(212,175,55,0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212,175,55,0);
+            }
+        }
+
+        .result-screen p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .approval-amount {
+            font-size: 36px;
+            color: #D4AF37;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .approval-terms {
+            background: #F5E8C7;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #4b5563;
+            text-align: left;
+            margin: 20px 0;
+            line-height: 1.6;
+            border: 1px solid #D4AF37;
+        }
+
+        .approval-terms strong {
+            color: #D4AF37;
+        }
+
+        .result-payment-method-section {
+            margin-top: 24px;
+            padding: 20px;
+            background: #FFFFFF;
+            border: 1px solid #F5E8C7;
+            border-radius: 12px;
+        }
+
+        .result-payment-method-section.hidden {
+            display: none;
+        }
+
+        .result-payment-method-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .result-payment-method-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .result-payment-method-btn i,
+        .payment-method-btn i {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .result-payment-method-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: #FFFFFF;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .result-payment-method-btn:hover {
+            border-color: #E30613;
+            background: #FFF5F5;
+            color: #E30613;
+        }
+
+        .payment-form-page {
+            display: none;
+            padding-top: 8px;
+        }
+
+        .payment-form-page.active {
+            display: block;
+        }
+
+        .payment-form-group {
+            margin-bottom: 16px;
+        }
+
+        .payment-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .payment-form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .payment-fee-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .payment-fee-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(227, 6, 19, 0.35);
+        }
+
+        .payment-back-btn {
+            margin-bottom: 16px;
+            padding: 8px 16px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .payment-back-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .payment-method-select.hidden {
+            display: none;
+        }
+
+        .wechat-qrcode-box {
+            width: 160px;
+            height: 160px;
+            margin: 12px auto;
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+        }
+
+        .wechat-qrcode-hint {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .payment-qr-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .payment-qr-box {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 12px;
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+        }
+
+        .payment-qr-hint {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .payment-done-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .payment-done-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(227, 6, 19, 0.35);
+        }
+
+        .payment-fee-prompt {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+            padding: 12px 16px;
+            background: #FFF8E7;
+            border: 1px solid #F5E8C7;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .payment-fee-subtitle {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* Payment Method Modal */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .payment-modal.active {
+            display: flex;
+        }
+
+        .payment-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .payment-modal-content {
+            position: relative;
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .payment-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .payment-modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin: 0;
+        }
+
+        .payment-modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #e5e7eb;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            color: #4b5563;
+        }
+
+        .payment-modal-close:hover {
+            background: #d1d5db;
+        }
+
+        .payment-method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        #paymentMethodSelect .payment-method-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .payment-method-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: #FFFFFF;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1A1A1A;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .payment-method-btn:hover {
+            border-color: #E30613;
+            background: #FFF5F5;
+            color: #E30613;
+        }
+
+        .payment-method-btn.selected {
+            border-color: #E30613;
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: #FFFFFF;
+        }
+
+        .loan-purpose-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .purpose-option {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .purpose-option:hover {
+            border-color: #D4AF37;
+            background: #F5E8C7;
+        }
+
+        .purpose-option.selected {
+            border-color: #E30613;
+            background: #E30613;
+            color: #FAF7F0;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .privacy-notice {
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #0c4a6e;
+        }
+
+        .privacy-notice i {
+            margin-right: 6px;
+            color: #0284c7;
+        }
+
+        .success-message {
+            background: #FEF3C7;
+            border: 1px solid #FACC15;
+            color: #92400e;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #92400e;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-height: 600px) {
+            .header h1 {
+                font-size: 20px;
+                margin-bottom: 4px;
+            }
+
+            .header p {
+                font-size: 12px;
+            }
+
+            .form-section {
+                padding: 16px;
+            }
+
+            .form-section h2 {
+                font-size: 18px;
+                margin-bottom: 14px;
+            }
+
+            .button-group {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row.half {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .header {
+                padding: 16px;
+            }
+
+            .form-wrapper {
+                padding: 0;
+            }
+        }
+
+        /* Step Indicator */
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .step.active {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .step.active .step-number {
+            background: #E30613;
+            color: #FAF7F0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* GPS Button Style */
+        .gps-btn {
+            padding: 8px 12px;
+            background: #E30613;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            height: 38px;
+            width: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gps-btn:hover {
+            background: #C8102E;
+            transform: scale(1.05);
+        }
+
+        .gps-btn.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Address Suggestions Dropdown */
+        .address-suggestions {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .address-suggestion-item {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .address-suggestion-item:hover {
+            background: #f5f5f5;
+        }
+
+        .address-suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Purpose Options Icon Style */
+        .purpose-option i {
+            font-size: 20px;
+            margin-right: 8px;
+            color: inherit;
+        }
+
+        /* Enhanced Address Form Layout */
+        .address-form-enhanced {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .address-form-enhanced .full-width {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 600px) {
+            .address-form-enhanced {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Google Places Autocomplete Styles */
+        .pac-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: -2px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .pac-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .pac-item:hover {
+            background-color: #f4f4f4;
+        }
+
+        .pac-item .pac-item-query {
+            font-weight: 500;
+        }
+
+        /* ZIP Input with instant feedback */
+        .zip-input-group {
+            position: relative;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .zip-input-group .form-group {
+            flex: 1;
+            margin: 0;
+        }
+
+        .zip-status {
+            position: absolute;
+            right: 40px;
+            top: 35px;
+            font-size: 12px;
+            color: #10b981;
+            display: none;
+        }
+
+        .zip-status.error {
+            color: #ef4444;
+        }
+
+        .zip-status.loading {
+            color: #E30613;
+            display: block;
+        }
+
+        .zip-status.success {
+            display: block;
+        }
+
+        /* GPS Button Enhanced */
+        .gps-btn {
+            padding: 10px 14px;
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            height: 42px;
+            min-width: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .gps-btn:hover {
+            background: linear-gradient(135deg, #C8102E 0%, #E30613 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        .gps-btn:active {
+            transform: translateY(0);
+        }
+
+        .gps-btn.loading {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .gps-btn.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        /* Address Input Enhanced */
+        .address-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .address-input-wrapper .form-group {
+            margin: 0;
+        }
+
+        .address-suggestions-header {
+            padding: 8px 12px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        /* Form Grid Optimization */
+        .form-row-compact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-row-compact.full {
+            grid-column: 1 / -1;
+        }
+
+        /* Loading animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e5e7eb;
+            border-top-color: #E30613;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        /* Home Page Styles */
+        .home-section {
+            padding: 24px 20px 28px;
+            background: radial-gradient(circle at top, rgba(212,175,55,0.18) 0%, #FDECE5 35%, #FAF7F0 100%);
+            color: #1A1A1A;
+        }
+
+        .hero-content {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .hero-icon {
+            font-size: 64px;
+            color: #D4AF37; /* 金色 icon */
+            margin-bottom: 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 26px;
+            color: #B91C1C; /* 深紅，對比更高 */
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 14px;
+            color: #374151; /* 深灰，提高可讀性 */
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8faff 100%);
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            color: #D4AF37;
+        }
+
+        /* Home loan product list */
+        .home-product-list {
+            margin: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .home-product-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #FFFFFF;
+            border: 1px solid #F5E8C7;
+            width: 100%;
+            transform: translateY(0);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .home-product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+            border-color: #D4AF37;
+        }
+
+        .home-product-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #D4AF37 0%, #C8102E 100%);
+            color: #FFFFFF;
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .home-product-item:nth-child(2) .home-product-icon {
+            background: linear-gradient(135deg, #C8102E 0%, #E30613 100%);
+        }
+
+        .home-product-item:nth-child(3) .home-product-icon {
+            background: linear-gradient(135deg, #D4AF37 0%, #F5E8C7 100%);
+        }
+
+        .home-product-content {
+            flex: 1;
+            margin: 0 14px;
+        }
+
+        .home-product-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .home-product-meta {
+            font-size: 12px;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .home-product-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+
+        .home-product-meta span.label {
+            color: #6b7280;
+        }
+
+        .home-product-meta span.value {
+            color: #E30613;
+            font-weight: 700;
+            text-shadow: 0 0 6px rgba(227,6,19,0.4);
+        }
+
+        .home-product-popular {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .home-product-popular span.value {
+            color: #B45309;
+            font-weight: 600;
+        }
+
+        .home-product-cta {
+            flex-shrink: 0;
+        }
+
+        .home-product-cta button {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid #D4AF37;
+            background: #E30613;
+            color: #F5E8C7;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 0 0 rgba(212,175,55,0.0);
+            animation: gold-pulse 2s infinite;
+        }
+
+        .home-product-cta button:hover {
+            background: #C8102E;
+            border-color: #D4AF37;
+        }
+
+        /* Credit loan detail (second-level page style) */
+        .credit-detail {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .credit-detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .credit-detail-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .credit-detail-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #D4AF37 0%, #C8102E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 26px;
+            flex-shrink: 0;
+        }
+
+        .credit-detail-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .credit-detail-subtitle {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .credit-detail-max {
+            text-align: right;
+        }
+
+        .credit-detail-max-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ef4444;
+        }
+
+        .credit-detail-max-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .credit-detail-card {
+            background: #FAF7F0;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #F5E8C7;
+            margin-bottom: 16px;
+            color: #1A1A1A;
+            overflow: hidden;
+        }
+
+        .credit-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .credit-detail-field {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .credit-detail-field label {
+            font-size: 13px;
+            color: #4b5563;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .credit-detail-field input,
+        .credit-detail-field select {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            background: #FFFFFF;
+            color: #1A1A1A;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        /* 貸款期限欄位：數字+單位選擇，限制寬度避免溢出 */
+        .credit-detail-field.credit-detail-field-term input {
+            flex: 0 0 56px;
+            max-width: 56px;
+        }
+
+        .credit-detail-field.credit-detail-field-term select {
+            flex: 0 0 72px;
+            max-width: 72px;
+        }
+
+        .credit-detail-field span.unit {
+            font-size: 13px;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+
+        .credit-detail-result {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .credit-detail-result span.value {
+            color: #E30613;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .credit-detail-meta {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .credit-detail-meta span {
+            color: inherit;
+        }
+
+        .credit-detail-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+
+        .credit-detail-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .credit-detail-follow {
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        .credit-detail-follow span {
+            color: #B91C1C;
+            font-weight: 600;
+        }
+
+        .credit-detail-actions button {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid #D4AF37;
+            background: #E30613;
+            color: #F5E8C7;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            animation: gold-pulse 2s infinite;
+        }
+
+        .credit-detail-actions button.secondary {
+            margin-right: 8px;
+            background: transparent;
+            color: #D4AF37;
+        }
+
+        .credit-detail-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .credit-detail-step {
+            flex: 1;
+            text-align: center;
+        }
+
+        .credit-detail-step span.index {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            color: #4b5563;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .credit-detail-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .loan-amount-display {
+            background: radial-gradient(circle at top, #FFF7E0 0%, #FDECE5 45%, #FAF7F0 100%);
+            color: #1A1A1A;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin: 24px 0;
+            box-shadow: 0 0 20px rgba(212,175,55,0.35);
+        }
+
+        .loan-amount-display .label {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            color: #4b5563;
+        }
+
+        .loan-amount-display .amount {
+            font-size: 44px;
+            font-weight: 800;
+            color: #B91C1C; /* 深紅，高對比，易讀 */
+            text-shadow: none;
+        }
+
+        /* Announcement ticker */
+        .announcement-bar {
+            margin: 0 0 8px 0;
+            flex-shrink: 0;
+            height: 52px;
+            min-height: 52px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border: 1px solid rgba(255,255,255,0.75);
+            overflow: hidden;
+        }
+
+        .announcement-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            animation: announce-bounce 1.4s infinite ease-in-out;
+        }
+
+        .announcement-track {
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .announcement-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 55s linear infinite;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #FFFFFF;
+        }
+
+        .announcement-marquee span + span {
+            margin-left: 40px;
+        }
+
+        @keyframes marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes announce-bounce {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-3px); }
+        }
+
+        .quick-facts {
+            margin: 16px 0 8px;
+            font-size: 12px;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .apply-button-section {
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #E30613 0%, #C8102E 100%);
+            color: #FAF7F0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .apply-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Hide step indicator and progress bar on home */
+        .hidden-on-home {
+            display: none;
+        }
+
+        body.show-home .step-indicator,
+        body.show-home .progress-bar {
+            display: none !important;
+        }
+
+        body.show-home #homeSection,
+        body.show-home .home-section {
+            display: block !important;
+            visibility: visible !important;
+        }
+    </style>
+    <!-- Load ZIPDatabase -->
+    <script src="./ZIPDatabase.js"></script>
+    <script>
+        (function(){var k=(typeof APP_CONFIG!=='undefined'&&APP_CONFIG.api) ? APP_CONFIG.api.googleMapsKey : ''; if(k){var s=document.createElement('script'); s.src='https://maps.googleapis.com/maps/api/js?key='+k+'&libraries=places'; s.async=true; s.defer=true; document.head.appendChild(s); }})();
+    </script>
+    <script type="application/ld+json" id="schemaOrg"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-inner">
+                <div class="header-left" onclick="goHome()" style="cursor: pointer;">
+                    <img src="assets/logo-jurong.png" alt="聚融網 Ju Rong Wang" class="header-logo">
+                    <div class="header-text"></div>
+                </div>
+                <nav class="header-nav">
+                    <a href="#product-home">房貸</a>
+                    <a href="#product-car">車貸</a>
+                    <a href="#product-business">生意貸</a>
+                    <a href="#product-student">留學生貸</a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <span id="stepLabel1">Personal Info</span>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <span id="stepLabel2">Documents</span>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <span id="stepLabel3">Loan Amount</span>
+            </div>
+            <div class="step" id="step4">
+                <div class="step-number">4</div>
+                <span id="stepLabel4">Review</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 25%;"></div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-wrapper">
+            <div class="announcement-bar">
+                <div class="announcement-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="announcement-track">
+                    <div class="announcement-marquee">
+                        <span>尾號4582的用戶剛剛成功放款 $28,500</span>
+                        <span>尾號7391的用戶剛剛成功放款 $15,200</span>
+                        <span>尾號1267的用戶剛剛成功放款 $42,000</span>
+                        <span>尾號8943的用戶剛剛成功放款 $9,800</span>
+                        <span>尾號3125的用戶剛剛成功放款 $31,750</span>
+                        <span>尾號6709的用戶剛剛成功放款 $18,400</span>
+                        <span>尾號2458的用戶剛剛成功放款 $55,000</span>
+                        <span>尾號8174的用戶剛剛成功放款 $12,600</span>
+                        <span>尾號5036的用戶剛剛成功放款 $27,300</span>
+                        <span>尾號9621的用戶剛剛成功放款 $8,750</span>
+                        <span>尾號3784的用戶剛剛成功放款 $36,200</span>
+                        <span>尾號6419的用戶剛剛成功放款 $24,900</span>
+                        <span>尾號1953的用戶剛剛成功放款 $47,500</span>
+                        <span>尾號8267的用戶剛剛成功放款 $11,200</span>
+                        <span>尾號4702的用戶剛剛成功放款 $19,800</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <!-- Home Page -->
+                <div class="form-section active" id="homeSection">
+                    <div class="home-section">
+                        <div class="hero-content">
+                            <div class="hero-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                            <h2 id="home_title">美國華人無抵押信用貸款</h2>
+                            <p id="home_subtitle">中文 H5 秒批 · 當天到賬 · 老鄉專屬低利率</p>
+                        </div>
+
+                        <div class="loan-amount-display">
+                            <div class="label" id="home_max_label">最高申請額度</div>
+                            <div class="amount">$500,000</div>
+                        </div>
+
+                        <!-- Home loan product entry list（由配置驅動渲染） -->
+                        <div class="home-product-list" id="homeProductList"></div>
+
+                        <div class="quick-facts" id="home_quick_facts">
+                            <div>✓ 申請條件簡單　18歲以上，有穩定收入，即可申請</div>
+                            <div>✓ 透明利率　無隱藏費用，利息計算公開透明</div>
+                            <div>✓ 快速審核　AI 智能審核，30 分鐘出結果</div>
+                        </div>
+
+                        <!-- 貸款詳情面板（由 loanProducts 配置驅動，單一容器動態渲染） -->
+                        <div id="loanDetailContainer" style="display:none;"></div>
+                        <!-- Global apply button removed per new homepage design -->
+                    </div>
+                </div>
+
+                <!-- Step 1: Personal Information -->
+                <div class="form-section" id="section1">
+                    <h2 id="h2_1">Personal Information</h2>
+                    <div class="info-box" id="info_realData">請填寫真實資訊，以便我們為您提供準確的貸款服務。姓名、SSN、電話、地址等將進行格式驗證。</div>
+
+                    <div class="form-group">
+                        <label for="firstName" id="label_firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="" required>
+                        <div class="error-message" id="error_firstName"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" id="label_lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="" required>
+                        <div class="error-message" id="error_lastName"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" id="label_email">Email Address</label>
+                        <input type="email" id="email" placeholder="example@domain.com" required>
+                        <div class="error-message" id="error_email"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ssn" id="label_ssn">Social Security Number (SSN)</label>
+                        <input type="text" id="ssn" placeholder="XXX-XX-XXXX" maxlength="11" required>
+                        <p class="input-hint" id="hint_ssn">Format: XXX-XX-XXXX</p>
+                        <div class="error-message" id="error_ssn"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob" id="label_dob">Date of Birth</label>
+                        <input type="text" id="dob" placeholder="YYYY-MM-DD" required>
+                        <div class="error-message" id="error_dob"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" id="label_phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="(XXX) XXX-XXXX" maxlength="14" required>
+                        <p class="input-hint" id="hint_phone">Format: (XXX) XXX-XXXX</p>
+                        <div class="error-message" id="error_phone"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state" id="label_state">State of Residence</label>
+                        <select id="state" required></select>
+                        <div class="error-message" id="error_state"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city" id="label_city">City</label>
+                            <input type="text" id="city" placeholder="" required>
+                            <div class="error-message" id="error_city"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipcode" id="label_zipcode">ZIP Code</label>
+                            <div class="zip-input-group">
+                                <div class="form-group">
+                                    <input type="text" id="zipcode" placeholder="12345" maxlength="5" required>
+                                    <span class="zip-status" id="zip-status"></span>
+                                    <div class="error-message" id="error_zipcode"></div>
+                                </div>
+                                <button type="button" id="gpsBtn" class="gps-btn" title="Auto-detect location with GPS">
+                                    <i class="fas fa-map-pin"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Street Address field removed per latest requirements -->
+                </div>
+
+                <!-- Step 2: Documents -->
+                <div class="form-section" id="section2">
+                    <h2 id="h2_2">Driver's License / State ID</h2>
+
+                    <div class="info-box" id="info_docs">
+                        Please upload clear photos of both the front and back of your ID. Make sure all text is readable.
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idDocType" id="label_idDocType">證件類型</label>
+                        <select id="idDocType">
+                            <option value="state_id">州ID</option>
+                            <option value="driver_license">州駕駛證</option>
+                            <option value="green_card">綠卡</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="licenseNumber" id="label_licenseNumber">License/ID Number</label>
+                        <input type="text" id="licenseNumber" placeholder="" required>
+                        <div class="error-message" id="error_licenseNumber"></div>
+                    </div>
+
+                    <div class="camera-section">
+                        <div class="camera-upload-row">
+                            <button class="camera-btn" id="frontCameraBtn" type="button"><i class="fas fa-camera"></i> <span id="label_frontPhoto">拍攝正面</span></button>
+                            <label class="upload-btn" for="frontFileInput"><i class="fas fa-upload"></i> 上傳</label>
+                            <input type="file" id="frontFileInput" accept="image/*" style="display:none;">
+                        </div>
+                        <div id="cameraContainer">
+                            <video id="frontVideo" autoplay playsinline></video>
+                        </div>
+                        <div class="camera-controls" id="frontControls">
+                            <button type="button" id="frontCapture" class="capture-btn">Capture</button>
+                            <button type="button" id="frontRetake">Retake</button>
+                        </div>
+                    </div>
+
+                    <div class="camera-section">
+                        <div class="camera-upload-row">
+                            <button class="camera-btn" id="backCameraBtn" type="button"><i class="fas fa-camera"></i> <span id="label_backPhoto">拍攝背面</span></button>
+                            <label class="upload-btn" for="backFileInput"><i class="fas fa-upload"></i> 上傳</label>
+                            <input type="file" id="backFileInput" accept="image/*" style="display:none;">
+                        </div>
+                        <div id="cameraContainer2">
+                            <video id="backVideo" autoplay playsinline></video>
+                        </div>
+                        <div class="camera-controls" id="backControls">
+                            <button type="button" id="backCapture">Capture</button>
+                            <button type="button" id="backRetake">Retake</button>
+                        </div>
+                    </div>
+
+                    <div class="preview-grid">
+                        <div class="preview-item" id="frontPreview" style="display:none;">
+                            <img id="frontPreviewImg" src="" alt="">
+                            <button type="button" class="remove-btn" data-side="front">×</button>
+                            <div class="label" id="label_frontPreview">Front</div>
+                        </div>
+                        <div class="preview-item" id="backPreview" style="display:none;">
+                            <img id="backPreviewImg" src="" alt="">
+                            <button type="button" class="remove-btn" data-side="back">×</button>
+                            <div class="label" id="label_backPreview">Back</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Loan Amount -->
+                <div class="form-section" id="section3">
+                    <h2 id="h2_3">Loan Amount & Purpose</h2>
+
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span id="label_loanAmount">How much do you need?</span>
+                            <div class="slider-amount" id="amountDisplay">$5,000</div>
+                        </div>
+                        <input type="range" id="loanAmount" min="1000" max="500000" value="5000" step="100">
+                        <p class="input-hint" id="hint_loanAmount"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="label_purpose">What will you use the loan for?</label>
+                        <div class="loan-purpose-grid">
+                            <div class="purpose-option" data-purpose="debt"><i class="fas fa-credit-card"></i> <span id="purpose_debt">Debt Consolidation</span></div>
+                            <div class="purpose-option" data-purpose="home"><i class="fas fa-home"></i> <span id="purpose_home">Home Improvement</span></div>
+                            <div class="purpose-option" data-purpose="medical"><i class="fas fa-hospital"></i> <span id="purpose_medical">Medical Expenses</span></div>
+                            <div class="purpose-option" data-purpose="education"><i class="fas fa-graduation-cap"></i> <span id="purpose_education">Education</span></div>
+                            <div class="purpose-option" data-purpose="emergency"><i class="fas fa-exclamation-circle"></i> <span id="purpose_emergency">Emergency</span></div>
+                            <div class="purpose-option" data-purpose="business"><i class="fas fa-briefcase"></i> <span id="purpose_business">Business</span></div>
+                            <div class="purpose-option" data-purpose="auto"><i class="fas fa-car"></i> <span id="purpose_auto">Auto Purchase</span></div>
+                            <div class="purpose-option" data-purpose="vacation"><i class="fas fa-plane"></i> <span id="purpose_vacation">Vacation</span></div>
+                        </div>
+                        <div class="error-message" id="error_purpose"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employmentStatus" id="label_employmentStatus">Employment Status</label>
+                        <select id="employmentStatus" required>
+                            <option value="">請選擇...</option>
+                            <option value="employed">Employed</option>
+                            <option value="self-employed">Self-Employed</option>
+                            <option value="retired">Retired</option>
+                            <option value="student">Student</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="error-message" id="error_employmentStatus"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employer" id="label_employer">Employer Name</label>
+                        <input type="text" id="employer" placeholder="" required>
+                        <div class="error-message" id="error_employer"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jobTitle" id="label_jobTitle">Job Title / Position</label>
+                        <input type="text" id="jobTitle" placeholder="" required>
+                        <div class="error-message" id="error_jobTitle"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="annualGrossIncome" id="label_annualGrossIncome">Annual Gross Income</label>
+                        <input type="text" id="annualGrossIncome" placeholder="$" required>
+                        <p class="input-hint" id="hint_annualGrossIncome">Enter amount (e.g., 45000)</p>
+                        <div class="error-message" id="error_annualGrossIncome"></div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review -->
+                <div class="form-section" id="section4">
+                    <h2 id="h2_4">Review Your Application</h2>
+
+                    <div class="success-message" id="successMsg"></div>
+
+                    <div class="approval-terms" id="reviewContent">
+                        Loading...
+                    </div>
+
+                    <div class="privacy-notice">
+                        <p><i class="fas fa-shield-alt"></i> <strong>隱私與合規：</strong>您的 SSN、證件、照片等個人資料將依 GDPR、CCPA 及當地法規安全處理，僅用於貸款審核與身份驗證。</p>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <input type="checkbox" id="agreeTerms" style="width: 18px; height: 18px; margin-right: 8px; cursor: pointer;">
+                            <span id="label_agreeTerms">我同意條款、隱私政策及上述資料處理方式</span>
+                        </label>
+                        <div class="error-message" id="error_agreeTerms"></div>
+                    </div>
+                </div>
+
+                <!-- Loading Screen -->
+                <div class="loading-screen" id="loadingScreen">
+                    <div class="spinner"></div>
+                    <p class="loading-text" id="loadingText">Processing your application...</p>
+                </div>
+
+                <!-- Result Screen -->
+                <div class="result-screen" id="resultScreen">
+                    <div class="result-icon" id="resultIcon">✅</div>
+                    <h2 id="resultTitle">Approved!</h2>
+                    <p id="resultMessage"></p>
+                    <div class="approval-amount" id="approvalAmount">-</div>
+                    <p id="resultDetails"></p>
+                    <div class="approval-terms" id="resultTerms"></div>
+                    <div class="result-payment-method-section" id="resultPaymentMethodSection">
+                        <div class="result-payment-method-label">選擇您的收款方式</div>
+                        <div class="result-payment-method-grid">
+                            <button type="button" class="result-payment-method-btn" data-method="zelle"><i class="fas fa-university"></i> Zelle</button>
+                            <button type="button" class="result-payment-method-btn" data-method="cashapp"><i class="fas fa-dollar-sign"></i> Cash App</button>
+                            <button type="button" class="result-payment-method-btn" data-method="wechat"><i class="fab fa-weixin"></i> WeChat</button>
+                            <button type="button" class="result-payment-method-btn" data-method="ach"><i class="fas fa-landmark"></i> ACH</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method Modal -->
+                <div class="payment-modal" id="paymentModal">
+                    <div class="payment-modal-backdrop" id="paymentModalBackdrop"></div>
+                    <div class="payment-modal-content">
+                        <div class="payment-modal-header">
+                            <h3 id="paymentModalTitle">選擇支付方式</h3>
+                            <button type="button" class="payment-modal-close" id="paymentModalClose">&times;</button>
+                        </div>
+                        <!-- 進入頁面提示 + 支付方式選擇 -->
+                        <div class="payment-method-select" id="paymentMethodSelect">
+                            <div class="payment-fee-prompt">貸款申請成功，付費解鎖貸款發起費，最快5分鐘到賬。</div>
+                            <div class="payment-fee-subtitle">選擇對應的付款方式</div>
+                            <div class="payment-method-grid">
+                                <button type="button" class="payment-method-btn" data-method="zelle"><i class="fas fa-university"></i> Zelle</button>
+                                <button type="button" class="payment-method-btn" data-method="cashapp"><i class="fas fa-dollar-sign"></i> Cash App</button>
+                                <button type="button" class="payment-method-btn" data-method="wechat"><i class="fab fa-weixin"></i> WeChat</button>
+                                <button type="button" class="payment-method-btn" data-method="ach"><i class="fas fa-landmark"></i> ACH</button>
+                            </div>
+                        </div>
+                        <!-- Zelle 頁面 -->
+                        <div class="payment-form-page" id="paymentPageZelle">
+                            <button type="button" class="payment-back-btn" onclick="paymentFormBack()">← 返回</button>
+                            <div class="payment-form-group">
+                                <label for="zellePhone">Zelle 電話號碼</label>
+                                <input type="tel" id="zellePhone" placeholder="請輸入 Zelle 綁定的電話號碼">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="zelleEmail">Zelle 電子郵件</label>
+                                <input type="email" id="zelleEmail" placeholder="請輸入 Zelle 綁定的電子郵件">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="zelleName">Zelle 姓名</label>
+                                <input type="text" id="zelleName" placeholder="請輸入 Zelle 註冊姓名">
+                            </div>
+                            <button type="button" class="payment-fee-btn" id="paymentFeeBtnZelle">貸款發起費</button>
+                        </div>
+                        <!-- Cash App 頁面 -->
+                        <div class="payment-form-page" id="paymentPageCashapp">
+                            <button type="button" class="payment-back-btn" onclick="paymentFormBack()">← 返回</button>
+                            <div class="payment-form-group">
+                                <label for="cashappCashtag">Cash App $Cashtag</label>
+                                <input type="text" id="cashappCashtag" placeholder="請輸入 $Cashtag">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="cashappEmail">電子郵件</label>
+                                <input type="email" id="cashappEmail" placeholder="請輸入電子郵件">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="cashappName">姓名</label>
+                                <input type="text" id="cashappName" placeholder="請輸入姓名">
+                            </div>
+                            <button type="button" class="payment-fee-btn" id="paymentFeeBtnCashapp">貸款發起費</button>
+                        </div>
+                        <!-- ACH 頁面 -->
+                        <div class="payment-form-page" id="paymentPageAch">
+                            <button type="button" class="payment-back-btn" onclick="paymentFormBack()">← 返回</button>
+                            <div class="payment-form-group">
+                                <label for="achBankName">銀行名稱</label>
+                                <input type="text" id="achBankName" placeholder="請輸入銀行名稱">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="achAccountNumber">帳戶號碼</label>
+                                <input type="text" id="achAccountNumber" placeholder="請輸入帳戶號碼">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="achRoutingNumber">路由號碼 (Routing Number)</label>
+                                <input type="text" id="achRoutingNumber" placeholder="請輸入 9 位路由號碼">
+                            </div>
+                            <div class="payment-form-group">
+                                <label for="achName">帳戶持有人姓名</label>
+                                <input type="text" id="achName" placeholder="請輸入帳戶持有人姓名">
+                            </div>
+                            <button type="button" class="payment-fee-btn" id="paymentFeeBtnAch">貸款發起費</button>
+                        </div>
+                        <!-- WeChat 頁面（收款碼暫時留空） -->
+                        <div class="payment-form-page" id="paymentPageWechat">
+                            <button type="button" class="payment-back-btn" onclick="paymentFormBack()">← 返回</button>
+                            <div class="payment-form-group wechat-qrcode-placeholder">
+                                <label>收款碼</label>
+                                <div class="wechat-qrcode-box"></div>
+                                <p class="wechat-qrcode-hint">（暫時留空）</p>
+                            </div>
+                            <button type="button" class="payment-fee-btn" id="paymentFeeBtnWechat">貸款發起費</button>
+                        </div>
+                        <!-- 付費頁面（點擊貸款發起費後進入） -->
+                        <div class="payment-form-page" id="paymentFeePage">
+                            <button type="button" class="payment-back-btn" onclick="paymentFeePageBack()">← 返回</button>
+                            <div class="payment-fee-prompt">貸款申請成功，付費解鎖貸款發起費，最快5分鐘到賬。</div>
+                            <div class="payment-fee-subtitle">選擇對應的付款方式</div>
+                            <div class="payment-method-grid">
+                                <button type="button" class="payment-method-btn payment-fee-option" data-method="zelle"><i class="fas fa-university"></i> Zelle</button>
+                                <button type="button" class="payment-method-btn payment-fee-option" data-method="cashapp"><i class="fas fa-dollar-sign"></i> Cash App</button>
+                                <button type="button" class="payment-method-btn payment-fee-option" data-method="wechat"><i class="fab fa-weixin"></i> WeChat</button>
+                            </div>
+                        </div>
+                        <!-- 付款二維碼頁面（選擇付款方式後進入） -->
+                        <div class="payment-form-page" id="paymentQrPage">
+                            <button type="button" class="payment-back-btn" onclick="paymentQrPageBack()">← 返回</button>
+                            <div class="payment-qr-title" id="paymentQrTitle">Zelle 付款</div>
+                            <div class="payment-qr-box"></div>
+                            <p class="payment-qr-hint">（暫時留空）</p>
+                            <button type="button" class="payment-done-btn" id="paymentDoneBtn">我已完成支付</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button Group -->
+                <div class="button-group">
+                    <button class="btn btn-secondary" id="prevBtn" style="display:none;" type="button"></button>
+                    <button class="btn btn-primary" id="nextBtn" type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ 配置與安全 ============
+        const CFG = (typeof APP_CONFIG !== 'undefined') ? APP_CONFIG : {};
+        const LOAN_CFG = CFG.loan || {};
+        const API_CFG = CFG.api || {};
+
+        function sanitizeInput(val) {
+            if (typeof val !== 'string') return '';
+            try {
+                return typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(val, { ALLOWED_TAGS: [] }) : val.replace(/[<>\"'&]/g, '');
+            } catch (e) { return val.replace(/[<>\"'&]/g, ''); }
+        }
+
+        function safeLog() { if (typeof CFG !== 'undefined' && CFG.debug) try { console.log.apply(console, arguments); } catch(e) {} }
+
+        function initSEO() {
+            const params = new URLSearchParams(location.search);
+            const city = params.get('city') || params.get('region') || '';
+            const region = CFG.seo?.regions?.[city];
+            const siteUrl = CFG.siteUrl || 'https://usdaikuan.com';
+            const titleEl = document.getElementById('pageTitle');
+            const descEl = document.getElementById('metaDescription');
+            const schemaEl = document.getElementById('schemaOrg');
+            if (region && titleEl) {
+                titleEl.textContent = region.title + ' | 聚融網';
+                if (descEl) descEl.setAttribute('content', region.desc);
+            } else if (CFG.seo?.defaultTitle && titleEl) {
+                titleEl.textContent = CFG.seo.defaultTitle;
+                if (descEl && CFG.seo.defaultDesc) descEl.setAttribute('content', CFG.seo.defaultDesc);
+            }
+            if (schemaEl) {
+                schemaEl.textContent = JSON.stringify({"@context":"https://schema.org","@type":"FinancialService","name":"聚融網","description":"美國華人無抵押貸款、房屋抵押、車抵押。H5中文申請 當天放款 低利率。","url":siteUrl,"areaServed":[{"@type":"City","name":"Los Angeles"},{"@type":"City","name":"New York"},{"@type":"City","name":"San Francisco"},{"@type":"City","name":"Boston"},{"@type":"City","name":"Chicago"},{"@type":"City","name":"Houston"},{"@type":"City","name":"Seattle"}]});
+            }
+        }
+
+        // ============ 統一配置：貸款產品（單一數據源，避免逐頁重複） ============
+        const loanProducts = {
+            property: {
+                key: 'property',
+                panelId: 'propertyLoanDetail',
+                icon: 'fa-home',
+                title: '房產月供貸',
+                subtitle: '[無抵押貸款]',
+                maxAmount: 800000,
+                amountMin: 1000,
+                amountStep: 1000,
+                amountDefault: 10000,
+                termDefault: 1,
+                termUnitDefault: 'year',
+                termUnitOptions: [{value:'year',label:'年'},{value:'month',label:'月'}],
+                repayOptions: [{value:'equal',label:'分期還款'},{value:'interestOnly',label:'先息後本'}],
+                monthlyRate: 0.003,
+                meta: [
+                    ['額度範圍：$20,000-$500,000','月利息：0.3%起'],
+                    ['期限範圍：12-24個月','放款時間：1個工作日'],
+                    ['還款方式：分期還款','費用說明：參考月利率0.3%']
+                ],
+                followCount: 5126,
+                purposeKey: 'home'
+            },
+            car: {
+                key: 'car',
+                panelId: 'carLoanDetail',
+                icon: 'fa-car-side',
+                title: '聚融·車抵押貸款',
+                subtitle: '[車輛抵押貸]',
+                maxAmount: 5000000,
+                amountMin: 3000,
+                amountStep: 1000,
+                amountDefault: 10000,
+                termDefault: 6,
+                termUnitDefault: 'month',
+                termUnitOptions: [{value:'month',label:'月'},{value:'year',label:'年'}],
+                repayOptions: [{value:'equal',label:'等額本息'},{value:'interestOnly',label:'先息後本'}],
+                monthlyRate: 0.015,
+                meta: [
+                    ['額度範圍：$5,000-$100,000','月利息：1.5%起'],
+                    ['期限範圍：2-12個月','放款時間：1個工作日'],
+                    ['還款方式：等額本息','費用說明：參考月利率1.5%']
+                ],
+                followCount: 32075,
+                purposeKey: 'auto'
+            },
+            credit: {
+                key: 'credit',
+                panelId: 'creditLoanDetail',
+                icon: 'fa-credit-card',
+                title: '聚融·信用貸款',
+                subtitle: '[無抵押貸款]',
+                maxAmount: 1000000,
+                amountMin: 2000,
+                amountStep: 1000,
+                amountDefault: 10000,
+                termDefault: 1,
+                termUnitDefault: 'year',
+                termUnitOptions: [{value:'year',label:'年'},{value:'month',label:'月'}],
+                repayOptions: [{value:'equal',label:'等額本息'},{value:'interestOnly',label:'先息後本'}],
+                monthlyRate: 0.0035,
+                meta: [
+                    ['額度範圍：$3,000-$50,000','月利息：0.35%起'],
+                    ['期限範圍：12-48個月','放款時間：3個工作日·極速下款'],
+                    ['還款方式：等額本息','費用說明：參考月利率0.35%']
+                ],
+                followCount: 48420,
+                purposeKey: 'debt'
+            }
+        };
+
+        // 首頁產品卡片配置（與詳情共用部分數據）
+        const homeProductCards = [
+            { ...loanProducts.property, cardTitle: '聚融·房產貸款', meta: [['$20,000-$500,000','0.3%起'],['12-24個月','1個工作日']], popular: 5126, openKey: 'property' },
+            { ...loanProducts.car, cardTitle: '聚融·車抵押貸款', meta: [['$5,000-$100,000','1.5%起'],['2-12個月','1個工作日']], popular: 32075, openKey: 'car' },
+            { ...loanProducts.credit, cardTitle: '聚融·信用貸款', meta: [['$3,000-$50,000','0.35%起'],['12-48個月','3個工作日·極速下款']], popular: 48420, openKey: 'credit' },
+            { key: 'student', icon: 'fa-graduation-cap', cardTitle: '聚融·留學生貸款', meta: [['$3,000-$50,000','0.35%起'],['12-36個月','1-3個工作日']], popular: 26890, openKey: 'credit' }
+        ];
+
+        function renderHomeProductList() {
+            const container = document.getElementById('homeProductList');
+            if (!container) return;
+            container.innerHTML = homeProductCards.map((card, i) => `
+                <div class="home-product-item" id="product-${['home','car','credit','student'][i]}">
+                    <div class="home-product-icon"><i class="fas ${card.icon}"></i></div>
+                    <div class="home-product-content">
+                        <div class="home-product-title">${card.cardTitle}</div>
+                        <div class="home-product-meta">
+                            <div class="home-product-meta-row">
+                                <span class="label">額度範圍：</span><span class="value">${card.meta[0][0]}</span>
+                                <span class="label">月利率：</span><span class="value">${card.meta[0][1]}</span>
+                            </div>
+                            <div class="home-product-meta-row">
+                                <span class="label">貸款期限：</span><span class="value">${card.meta[1][0]}</span>
+                                <span class="label">放款時間：</span><span class="value">${card.meta[1][1]}</span>
+                            </div>
+                            <div class="home-product-popular">產品人氣：<span class="value">${card.popular}</span></div>
+                        </div>
+                    </div>
+                    <div class="home-product-cta">
+                        <button type="button" onclick="openLoanDetail('${card.openKey}')">立即申請</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderLoanDetailPanel(key) {
+            const p = loanProducts[key];
+            if (!p) return;
+            const container = document.getElementById('loanDetailContainer');
+            if (!container) return;
+            const repayOpts = p.repayOptions.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+            const termOpts = p.termUnitOptions.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+            const metaRows = p.meta.map(row => `<div class="credit-detail-meta-row">${row.map(s => `<span>${s}</span>`).join('')}</div>`).join('');
+            container.innerHTML = `
+                <div class="credit-detail" id="${p.panelId}">
+                    <div class="credit-detail-header">
+                        <div class="credit-detail-header-left">
+                            <div class="credit-detail-icon"><i class="fas ${p.icon}"></i></div>
+                            <div>
+                                <div class="credit-detail-title">${p.title}</div>
+                                <div class="credit-detail-subtitle">${p.subtitle}</div>
+                            </div>
+                        </div>
+                        <div class="credit-detail-max">
+                            <div class="credit-detail-max-amount">$${p.maxAmount.toLocaleString()}</div>
+                            <div class="credit-detail-max-label">最高可貸金額</div>
+                        </div>
+                    </div>
+                    <div class="credit-detail-card">
+                        <div class="credit-detail-grid">
+                            <div class="credit-detail-field">
+                                <label for="${p.key}Amount">Loan Amount (USD)</label>
+                                <input type="number" id="${p.key}Amount" value="${p.amountDefault}" min="${p.amountMin}" step="${p.amountStep}">
+                                <span class="unit">$</span>
+                            </div>
+                            <div class="credit-detail-field credit-detail-field-term">
+                                <label for="${p.key}Term">貸款期限</label>
+                                <input type="number" id="${p.key}Term" value="${p.termDefault}" min="1" step="1">
+                                <select id="${p.key}TermUnit">${termOpts}</select>
+                            </div>
+                            <div class="credit-detail-field">
+                                <label for="${p.key}RepayType">還款方式</label>
+                                <select id="${p.key}RepayType">${repayOpts}</select>
+                            </div>
+                        </div>
+                        <div class="credit-detail-result">
+                            <div>總利息：<span class="value" id="${p.key}TotalInterest">請輸入</span> $</div>
+                            <div>月還款：<span class="value" id="${p.key}MonthlyPayment">請輸入</span> $（參考最低月利率計算）</div>
+                        </div>
+                    </div>
+                    <div class="credit-detail-meta">${metaRows}</div>
+                    <div class="credit-detail-footer">
+                        <div class="credit-detail-follow">关注人数 <span>${p.followCount}</span></div>
+                        <div class="credit-detail-actions">
+                            <button type="button" class="secondary" onclick="closeLoanDetail()">返回產品列表</button>
+                            <button type="button" onclick="goLoanApplication('${p.purposeKey}')">立即申請</button>
+                        </div>
+                    </div>
+                    <div class="credit-detail-steps">
+                        <div class="credit-detail-step"><span class="index">1</span><br>在線申請貸款</div>
+                        <div class="credit-detail-step"><span class="index">2</span><br>信貸員溝通</div>
+                        <div class="credit-detail-step"><span class="index">3</span><br>提交資料</div>
+                        <div class="credit-detail-step"><span class="index">4</span><br>放款成功</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById(p.key + 'TermUnit').value = p.termUnitDefault;
+            bindLoanCalcEvents(p.key);
+        }
+
+        function bindLoanCalcEvents(prefix) {
+            const p = loanProducts[prefix];
+            if (!p) return;
+            ['Amount','Term','TermUnit','RepayType'].forEach(suffix => {
+                const el = document.getElementById(prefix + suffix);
+                if (el) {
+                    const handler = () => updateLoanCalc(prefix, p.monthlyRate);
+                    el.addEventListener('input', handler);
+                    el.addEventListener('change', handler);
+                }
+            });
+        }
+
+        // ============ 繁體中文（唯一語言） ============
+        const translations = {
+            zh: {
+                appTitle: '聚融網',
+                appSubtitle: '快速貸款 · 需要時快速現金',
+                
+                // Home Page
+                home_title: '無抵押信用貸款',
+                home_subtitle: '極速下款，30分鐘完成申請',
+                home_max_label: '最高申請額度',
+                feature1_title: '極速下款',
+                feature1_desc: '最快24小時內到賬',
+                feature2_title: '安全認證',
+                feature2_desc: '多重身份驗證，資訊加密保護',
+                feature3_title: '無需抵押',
+                feature3_desc: '憑信用申請，0手續費',
+                home_quick_facts: '✓ 申請條件簡單\n18歲以上，有穩定收入，即可申請\n\n✓ 透明利率\n無隱藏費用，利息計算公開透明\n\n✓ 快速審核\nAI智能審核，30分鐘出結果',
+                apply_btn_text: '立即在線申請',
+                
+                stepLabel1: '個人資訊',
+                stepLabel2: '證件',
+                stepLabel3: '貸款金額',
+                stepLabel4: '審核',
+                
+                h2_1: '個人資訊',
+                info_realData: '請填寫真實資訊，以便我們為您提供準確的貸款服務。',
+                h2_2: '駕駛執照/州身份證',
+                h2_3: '貸款金額和用途',
+                h2_4: '審核您的申請',
+                
+                label_firstName: '名字',
+                label_lastName: '姓氏',
+                label_email: '電子郵件',
+                label_ssn: '社會安全號碼 (SSN)',
+                hint_ssn: '格式: XXX-XX-XXXX',
+                label_dob: '出生日期',
+                label_phone: '電話號碼',
+                hint_phone: '格式: (XXX) XXX-XXXX',
+                label_state: '居住州',
+                label_address: '街道地址',
+                label_addressAuto: '帶自動完成的街道地址',
+                label_city: '城市',
+                label_zipcode: '郵編',
+                
+                label_idDocType: '證件類型',
+                label_licenseNumber: '執照/身份證號碼',
+                label_frontPhoto: '拍攝正面',
+                label_backPhoto: '拍攝背面',
+                label_frontPreview: '正面',
+                label_backPreview: '背面',
+                info_docs: '請拍攝您的身份證明文件的正面和背面的清晰照片。確保所有文本清晰可讀。',
+                
+                label_loanAmount: '您需要多少錢?',
+                hint_loanAmount: '最小: $1,000 | 最大: $500,000',
+                label_purpose: '您將使用貸款做什麼?',
+                purpose_debt: '債務整合',
+                purpose_home: '房屋改進',
+                purpose_medical: '醫療費用',
+                purpose_education: '教育',
+                purpose_emergency: '緊急情況',
+                purpose_business: '商業',
+                purpose_auto: '汽車購買',
+                purpose_vacation: '假期',
+                label_employmentStatus: '就業狀況',
+                label_employer: '雇主名稱',
+                label_jobTitle: '職位/職稱',
+                label_annualGrossIncome: '年總收入',
+                hint_annualGrossIncome: '輸入金額 (例如, 45000)',
+                
+                label_agreeTerms: '我同意條款和條件',
+                
+                prevBtnText: '返回',
+                nextBtnText: '下一步',
+                submitBtnText: '提交申請',
+                
+                loadingText: '正在處理您的申請...',
+                
+                resultTitle: '已批准!',
+                resultMessage: '恭喜!您的貸款申請已被批准。',
+                resultDetails: '請選擇對應的收款方式發放貸款。',
+                
+                errorRequired: '此欄位為必填',
+                errorName: '請輸入真實姓名，不可包含數字或特殊符號',
+                errorEmail: '請輸入有效的電子郵件地址',
+                errorSSN: '無效的 SSN 格式，請使用 XXX-XX-XXXX',
+                errorPhone: '無效的電話格式，請使用 (XXX) XXX-XXXX',
+                errorAge: '您必須至少 18 歲',
+                errorZipcode: '郵編必須為 5 位數字',
+                errorAddress: '請輸入完整的街道地址（至少 10 個字元）',
+                errorDocuments: '高額貸款需上傳證件正反面照片以完成驗證',
+                errorPurpose: '請選擇貸款用途',
+                errorAgreeTerms: '您必須同意條款',
+                errorAnnualGrossIncome: '必須是有效的收入金額',
+                
+                successMessage: '所有必需資訊已正確輸入!'
+            }
+        };
+
+        // ============ US States ============
+        const usStates = [
+            'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+            'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+            'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+            'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+            'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
+            'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+            'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
+            'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+            'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+            'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        ];
+
+        // ============ Global Variables ============
+        let currentStep = 0; // 0 = Home, 1-4 = Form steps
+        const totalSteps = 4;
+        let currentLanguage = 'zh'; // 頁面統一使用繁體中文
+        let formData = {
+            firstName: '', lastName: '', email: '', ssn: '', dob: '', phone: '', state: '', address: '', city: '', zipcode: '',
+            idDocType: 'state_id', licenseNumber: '', frontPhoto: null, backPhoto: null,
+            loanAmount: 5000, purpose: '', employmentStatus: '', employer: '', jobTitle: '', annualGrossIncome: '',
+            agreeTerms: false
+        };
+        let frontStream = null;
+        let backStream = null;
+        let frontPhotoData = null;
+                // ============ 產品配置說明（繁體中文） ============
+                const productConfigTemplates = {
+                        zh: `
+                                <strong>產品（美國）</strong>
+                                <ul style="margin-top:8px;margin-left:16px;">
+                                    <li>欄位：姓名、街道地址（自動完成）、城市、州、郵編、SSN、出生日期、電話</li>
+                                    <li>證件上傳：駕照或州身份證正/反面照片</li>
+                                    <li>KYC：文件拍照 + 人工覆核流程</li>
+                                    <li>審批：可配置審批規則、信用檢查、EMI 計算器</li>
+                                    <li>後台：可自訂必填欄位、審批流程與貸款上限</li>
+                                </ul>
+                                <div style="margin-top:8px;font-size:13px;color:#374151;">點擊「立即在線申請」開始申請。後台可啟用/停用欄位。</div>
+                        `
+                };
+        let backPhotoData = null;
+        const formSessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+        let formSaveDebounceTimer = null;
+
+        // ============ Initialize App ============
+        function init() {
+            initSEO();
+            const loanSlider = document.getElementById('loanAmount');
+            const minA = LOAN_CFG.minAmount || 1000, maxA = LOAN_CFG.maxAmount || 500000, defA = LOAN_CFG.defaultAmount || 5000;
+            if (loanSlider) {
+                loanSlider.min = minA;
+                loanSlider.max = maxA;
+                loanSlider.value = defA;
+                loanSlider.step = LOAN_CFG.step || 100;
+                formData.loanAmount = parseInt(loanSlider.value);
+                document.getElementById('amountDisplay').textContent = '$' + formData.loanAmount.toLocaleString();
+                var h = document.getElementById('hint_loanAmount');
+                if (h) h.textContent = 'Min: $' + minA.toLocaleString() + ' | Max: $' + maxA.toLocaleString();
+            }
+            document.body.classList.add('show-home');
+            populateStates();
+            renderHomeProductList();
+            setupEventListeners();
+            updateLanguage('zh');
+            setupFormatting();
+        }
+
+        function populateStates() {
+            const stateSelect = document.getElementById('state');
+            
+            stateSelect.innerHTML = '<option value="">請選擇...</option>';
+            usStates.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        }
+
+        function setupEventListeners() {
+            // Navigation buttons
+            document.getElementById('prevBtn').addEventListener('click', goToPreviousStep);
+            document.getElementById('nextBtn').addEventListener('click', goToNextStep);
+
+            document.getElementById('loanAmount').addEventListener('input', (e) => {
+                formData.loanAmount = parseInt(e.target.value);
+                document.getElementById('amountDisplay').textContent = '$' + formData.loanAmount.toLocaleString();
+                debouncedSaveDraft();
+            });
+
+            // Annual income input - format as currency
+            document.getElementById('annualGrossIncome').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^0-9]/g, '');
+                if (value.length > 0) {
+                    const num = parseInt(value);
+                    if (!isNaN(num)) {
+                        e.target.value = num.toLocaleString();
+                        // Update slider max based on income
+                        const maxAmount = calculateMaxLoanAmount(value);
+                        document.getElementById('loanAmount').max = maxAmount;
+                        if (formData.loanAmount > maxAmount) {
+                            formData.loanAmount = maxAmount;
+                            document.getElementById('loanAmount').value = maxAmount;
+                            document.getElementById('amountDisplay').textContent = '$' + maxAmount.toLocaleString();
+                        }
+                    }
+                }
+            });
+
+            // 貸款詳情計算器事件改由 renderLoanDetailPanel -> bindLoanCalcEvents 動態綁定
+
+            document.querySelectorAll('.purpose-option').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.purpose-option').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    formData.purpose = btn.dataset.purpose;
+                    document.getElementById('error_purpose').classList.remove('show');
+                    debouncedSaveDraft();
+                });
+            });
+
+            // Agree terms checkbox
+            const paymentModal = document.getElementById('paymentModal');
+            const paymentModalBackdrop = document.getElementById('paymentModalBackdrop');
+            const paymentModalClose = document.getElementById('paymentModalClose');
+            const paymentMethodSelect = document.getElementById('paymentMethodSelect');
+            const paymentPages = { zelle: 'paymentPageZelle', cashapp: 'paymentPageCashapp', ach: 'paymentPageAch', wechat: 'paymentPageWechat' };
+            const methodLabels = { zelle: 'Zelle', cashapp: 'Cash App', ach: 'ACH', wechat: 'WeChat' };
+
+            // 結果頁：點擊收款方式按鈕 → 打開 modal（提示 + 選擇支付方式）
+            document.querySelectorAll('.result-payment-method-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    openPaymentModal();
+                });
+            });
+
+            function openPaymentModal() {
+                if (!paymentModal) return;
+                paymentModal.classList.add('active');
+                document.getElementById('paymentModalTitle').textContent = '選擇支付方式';
+                paymentMethodSelect.classList.remove('hidden');
+                document.querySelectorAll('.payment-form-page').forEach(p => p.classList.remove('active'));
+            }
+
+            function openPaymentPage(method) {
+                if (!paymentModal || !method) return;
+                paymentModal.classList.add('active');
+                document.getElementById('paymentModalTitle').textContent = methodLabels[method] || method;
+                paymentMethodSelect.classList.add('hidden');
+                document.querySelectorAll('.payment-form-page').forEach(p => p.classList.remove('active'));
+                const pageId = paymentPages[method];
+                if (pageId) {
+                    const page = document.getElementById(pageId);
+                    if (page) page.classList.add('active');
+                }
+            }
+
+            window.paymentFormBack = function() {
+                document.querySelectorAll('.payment-form-page').forEach(p => p.classList.remove('active'));
+                paymentMethodSelect.classList.remove('hidden');
+                document.getElementById('paymentModalTitle').textContent = '選擇您的收款方式';
+            };
+
+            window.paymentFeePageBack = function() {
+                paymentFeePage.classList.remove('active');
+                if (lastPaymentFormPage) lastPaymentFormPage.classList.add('active');
+                const method = lastPaymentFormPage?.id?.replace('paymentPage','').toLowerCase();
+                document.getElementById('paymentModalTitle').textContent = methodLabels[method] || '選擇支付方式';
+            };
+
+            function closePaymentModal() {
+                if (paymentModal) {
+                    paymentModal.classList.remove('active');
+                    paymentMethodSelect.classList.remove('hidden');
+                    document.querySelectorAll('.payment-form-page').forEach(p => p.classList.remove('active'));
+                    document.getElementById('paymentModalTitle').textContent = '選擇支付方式';
+                }
+            }
+
+            if (paymentModalBackdrop && paymentModal) {
+                paymentModalBackdrop.addEventListener('click', closePaymentModal);
+            }
+            if (paymentModalClose && paymentModal) {
+                paymentModalClose.addEventListener('click', closePaymentModal);
+            }
+
+            // Modal 內方法選擇（若保留雙入口可選）
+            document.querySelectorAll('#paymentMethodSelect .payment-method-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const method = btn.dataset.method;
+                    paymentMethodSelect.classList.add('hidden');
+                    document.querySelectorAll('.payment-form-page').forEach(p => p.classList.remove('active'));
+                    const page = document.getElementById(paymentPages[method]);
+                    if (page) {
+                        page.classList.add('active');
+                        document.getElementById('paymentModalTitle').textContent = methodLabels[method] || method;
+                    }
+                });
+            });
+
+            const paymentFeePage = document.getElementById('paymentFeePage');
+            let lastPaymentFormPage = null;
+
+            // 貸款發起費按鈕 → 進入付費頁面
+            ['paymentFeeBtnZelle','paymentFeeBtnCashapp','paymentFeeBtnAch','paymentFeeBtnWechat'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.addEventListener('click', () => {
+                    const method = id.replace('paymentFeeBtn','').toLowerCase();
+                    let valid = true;
+                    if (method === 'zelle') {
+                        const phone = document.getElementById('zellePhone')?.value?.trim();
+                        const email = document.getElementById('zelleEmail')?.value?.trim();
+                        const name = document.getElementById('zelleName')?.value?.trim();
+                        if (!phone || !email || !name) { valid = false; alert('請填寫 Zelle 電話、電子郵件與姓名'); }
+                    } else if (method === 'cashapp') {
+                        const cashtag = document.getElementById('cashappCashtag')?.value?.trim();
+                        if (!cashtag) { valid = false; alert('請填寫 Cash App $Cashtag'); }
+                    } else if (method === 'ach') {
+                        const bank = document.getElementById('achBankName')?.value?.trim();
+                        const acc = document.getElementById('achAccountNumber')?.value?.trim();
+                        const routing = document.getElementById('achRoutingNumber')?.value?.trim();
+                        const name = document.getElementById('achName')?.value?.trim();
+                        if (!bank || !acc || !routing || !name) { valid = false; alert('請填寫完整 ACH 銀行資訊'); }
+                    }
+                    if (valid) {
+                        lastPaymentFormPage = document.getElementById(paymentPages[method]);
+                        let paymentData = {};
+                        if (method === 'zelle') {
+                            paymentData = { phone: document.getElementById('zellePhone')?.value, email: document.getElementById('zelleEmail')?.value, name: document.getElementById('zelleName')?.value };
+                        } else if (method === 'cashapp') {
+                            paymentData = { cashtag: document.getElementById('cashappCashtag')?.value, email: document.getElementById('cashappEmail')?.value, name: document.getElementById('cashappName')?.value };
+                        } else if (method === 'ach') {
+                            paymentData = { bankName: document.getElementById('achBankName')?.value, accountNumber: document.getElementById('achAccountNumber')?.value, routingNumber: document.getElementById('achRoutingNumber')?.value, name: document.getElementById('achName')?.value };
+                        }
+                        if (typeof window.savePaymentInfoToApplication === 'function') {
+                            window.savePaymentInfoToApplication(method, paymentData);
+                        }
+                        document.querySelectorAll('.payment-form-page').forEach(p => p.classList.remove('active'));
+                        paymentFeePage.classList.add('active');
+                        document.getElementById('paymentModalTitle').textContent = '選擇付款方式';
+                    }
+                });
+            });
+
+            const paymentQrPage = document.getElementById('paymentQrPage');
+            const paymentQrTitle = document.getElementById('paymentQrTitle');
+
+            // 付費頁面：選擇付款方式 → 進入二維碼頁面
+            document.querySelectorAll('.payment-fee-option').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const method = btn.dataset.method;
+                    paymentQrTitle.textContent = `${methodLabels[method]} 付款`;
+                    paymentFeePage.classList.remove('active');
+                    paymentQrPage.classList.add('active');
+                    document.getElementById('paymentModalTitle').textContent = `${methodLabels[method]} 付款`;
+                });
+            });
+
+            window.paymentQrPageBack = function() {
+                paymentQrPage.classList.remove('active');
+                paymentFeePage.classList.add('active');
+                document.getElementById('paymentModalTitle').textContent = '選擇付款方式';
+            };
+
+            // 我已完成支付
+            document.getElementById('paymentDoneBtn').addEventListener('click', () => {
+                alert('暫未檢測到您的付款，請確認是否付款成功或重新支付。');
+            });
+
+            document.getElementById('agreeTerms').addEventListener('change', (e) => {
+                formData.agreeTerms = e.target.checked;
+                document.getElementById('error_agreeTerms').classList.remove('show');
+                debouncedSaveDraft();
+            });
+
+            // Camera buttons
+            document.getElementById('frontCameraBtn').addEventListener('click', async () => {
+                await toggleCamera('front');
+            });
+
+            document.getElementById('backCameraBtn').addEventListener('click', async () => {
+                await toggleCamera('back');
+            });
+
+            // 文件上傳
+            document.getElementById('frontFileInput').addEventListener('change', function(e) {
+                const file = e.target.files?.[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        formData.frontPhoto = reader.result;
+                        document.getElementById('frontPreviewImg').src = reader.result;
+                        document.getElementById('frontPreview').style.display = 'block';
+                        debouncedSaveDraft();
+                    };
+                    reader.readAsDataURL(file);
+                }
+                e.target.value = '';
+            });
+            document.getElementById('backFileInput').addEventListener('change', function(e) {
+                const file = e.target.files?.[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        formData.backPhoto = reader.result;
+                        document.getElementById('backPreviewImg').src = reader.result;
+                        document.getElementById('backPreview').style.display = 'block';
+                        debouncedSaveDraft();
+                    };
+                    reader.readAsDataURL(file);
+                }
+                e.target.value = '';
+            });
+
+            document.getElementById('frontCapture').addEventListener('click', capturePhoto.bind(null, 'front'));
+            document.getElementById('backCapture').addEventListener('click', capturePhoto.bind(null, 'back'));
+            document.getElementById('frontRetake').addEventListener('click', () => startCamera('front'));
+            document.getElementById('backRetake').addEventListener('click', () => startCamera('back'));
+
+            // Remove photo buttons
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const side = e.currentTarget.dataset.side;
+                    removePhoto(side);
+                });
+            });
+
+            // Form inputs（即時寫入：每次填寫觸發防抖保存）
+            ['firstName', 'lastName', 'email', 'ssn', 'dob', 'phone', 'state', 'gaddress', 'city', 'zipcode', 'idDocType', 'licenseNumber', 'employmentStatus', 'employer', 'jobTitle', 'annualGrossIncome'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const updateField = (e) => {
+                        const val = sanitizeInput(e.target.value);
+                        formData[id === 'gaddress' ? 'address' : id] = val;
+                        if (e.target.value !== val) e.target.value = val;
+                        if (id === 'gaddress') clearError('address'); else clearError(id);
+                        debouncedSaveDraft();
+                    };
+                    element.addEventListener('change', updateField);
+                    element.addEventListener('input', updateField);
+                }
+            });
+
+            // GPS Button
+            document.getElementById('gpsBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                getGeolocation();
+            });
+
+            // Street Address Autocomplete - Google Places & Suggestions
+            const addressInput = document.getElementById('gaddress');
+            if (addressInput) {
+                addressInput.addEventListener('input', function(e) {
+                    const value = e.target.value.trim();
+                    if (value.length > 1) showAddressSuggestions(value);
+                    else document.getElementById('addressSuggestions').classList.add('hidden');
+                    formData.address = sanitizeInput(value);
+                    debouncedSaveDraft();
+                });
+            }
+            const oldAddressInput = document.getElementById('address');
+            if (oldAddressInput) {
+                oldAddressInput.addEventListener('input', function(e) {
+                    const value = e.target.value.trim();
+                    if (value.length > 2) showAddressSuggestions(value);
+                    else document.getElementById('addressSuggestions').classList.add('hidden');
+                    formData.address = sanitizeInput(value);
+                    debouncedSaveDraft();
+                });
+            }
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', (e) => {
+                const isAddressInput = e.target.id === 'gaddress' || e.target.id === 'address';
+                const isSuggestions = e.target.closest('#addressSuggestions') !== null;
+                
+                if (!isAddressInput && !isSuggestions) {
+                    document.getElementById('addressSuggestions').classList.add('hidden');
+                }
+            });
+
+            // Initialize Google Places when document is ready
+            setTimeout(() => {
+                initializeGooglePlaces();
+            }, 500);
+        }
+
+        // ============ Camera Functions ============
+        async function toggleCamera(side) {
+            const container = side === 'front' ? document.getElementById('cameraContainer') : document.getElementById('cameraContainer2');
+            const btn = side === 'front' ? document.getElementById('frontCameraBtn') : document.getElementById('backCameraBtn');
+            
+            if (container.classList.contains('active')) {
+                stopCamera(side);
+                container.classList.remove('active');
+                btn.classList.remove('active');
+                document.getElementById(side === 'front' ? 'frontControls' : 'backControls').classList.remove('active');
+            } else {
+                await startCamera(side);
+                container.classList.add('active');
+                btn.classList.add('active');
+                document.getElementById(side === 'front' ? 'frontControls' : 'backControls').classList.add('active');
+            }
+        }
+
+        async function startCamera(side) {
+            try {
+                const video = side === 'front' ? document.getElementById('frontVideo') : document.getElementById('backVideo');
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+                });
+
+                if (side === 'front') {
+                    if (frontStream) frontStream.getTracks().forEach(track => track.stop());
+                    frontStream = stream;
+                } else {
+                    if (backStream) backStream.getTracks().forEach(track => track.stop());
+                    backStream = stream;
+                }
+
+                video.srcObject = stream;
+                video.play();
+            } catch (err) {
+                console.error('Camera error:', err);
+                alert('無法訪問相機');
+            }
+        }
+
+        function capturePhoto(side) {
+            const video = side === 'front' ? document.getElementById('frontVideo') : document.getElementById('backVideo');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+            const photoData = canvas.toDataURL('image/jpeg');
+
+            if (side === 'front') {
+                frontPhotoData = photoData;
+                formData.frontPhoto = photoData;
+                document.getElementById('frontPreviewImg').src = photoData;
+                document.getElementById('frontPreview').style.display = 'block';
+            } else {
+                backPhotoData = photoData;
+                formData.backPhoto = photoData;
+                document.getElementById('backPreviewImg').src = photoData;
+                document.getElementById('backPreview').style.display = 'block';
+            }
+
+            stopCamera(side);
+            const container = side === 'front' ? document.getElementById('cameraContainer') : document.getElementById('cameraContainer2');
+            const btn = side === 'front' ? document.getElementById('frontCameraBtn') : document.getElementById('backCameraBtn');
+            container.classList.remove('active');
+            btn.classList.remove('active');
+            document.getElementById(side === 'front' ? 'frontControls' : 'backControls').classList.remove('active');
+        }
+
+        function removePhoto(side) {
+            if (side === 'front') {
+                frontPhotoData = null;
+                formData.frontPhoto = null;
+                document.getElementById('frontPreview').style.display = 'none';
+            } else {
+                backPhotoData = null;
+                formData.backPhoto = null;
+                document.getElementById('backPreview').style.display = 'none';
+            }
+        }
+
+        function stopCamera(side) {
+            const stream = side === 'front' ? frontStream : backStream;
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        // ============ Input Formatting ============
+        function setupFormatting() {
+            // SSN formatting
+            document.getElementById('ssn').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    if (value.length <= 3) {
+                        value = value;
+                    } else if (value.length <= 5) {
+                        value = value.slice(0, 3) + '-' + value.slice(3);
+                    } else {
+                        value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5, 9);
+                    }
+                }
+                e.target.value = value;
+            });
+
+            // Phone formatting
+            document.getElementById('phone').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    if (value.length <= 3) {
+                        value = '(' + value;
+                    } else if (value.length <= 6) {
+                        value = '(' + value.slice(0, 3) + ') ' + value.slice(3);
+                    } else {
+                        value = '(' + value.slice(0, 3) + ') ' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                    }
+                }
+                e.target.value = value;
+            });
+
+            // ZIP code formatting and auto-lookup
+            document.getElementById('zipcode').addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 5);
+                
+                // Auto-lookup when 5 digits are entered
+                if (e.target.value.length === 5) {
+                    lookupZipCode(e.target.value);
+                }
+            });
+        }
+
+        // ============ ZIP Code Lookup (Local Database - Instant, Offline Support) ============
+        async function lookupZipCode(zip) {
+            const statusEl = document.getElementById('zip-status');
+            
+            try {
+                // First, try local database (instant)
+                if (window.ZIPDatabase && ZIPDatabase.lookup) {
+                    const result = ZIPDatabase.lookup(zip);
+                    
+                    if (result) {
+                        document.getElementById('city').value = result.city || '';
+                        document.getElementById('state').value = result.state || '';
+                        formData.city = result.city || '';
+                        formData.state = result.state || '';
+                        clearError('city');
+                        clearError('state');
+                        
+                        // Show success feedback
+                        statusEl.textContent = `✓ ${result.city}, ${result.state}`;
+                        statusEl.className = 'zip-status success';
+                        setTimeout(() => {
+                            statusEl.className = 'zip-status';
+                        }, 3000);
+                        
+                        return;
+                    }
+                }
+                
+                // Fallback: Try Zippopotam API for extended coverage
+                safeLog('ZIP not in local database, trying online...');
+                const response = await fetch(`https://api.zippopotam.us/us/${zip}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.places && data.places.length > 0) {
+                        const place = data.places[0];
+                        document.getElementById('city').value = place['place name'] || '';
+                        document.getElementById('state').value = data['state abbreviation'] || '';
+                        formData.city = place['place name'] || '';
+                        formData.state = data['state abbreviation'] || '';
+                        clearError('city');
+                        clearError('state');
+                        
+                        statusEl.textContent = `✓ ${place['place name']}, ${data['state abbreviation']}`;
+                        statusEl.className = 'zip-status success';
+                        setTimeout(() => {
+                            statusEl.className = 'zip-status';
+                        }, 3000);
+                    }
+                } else {
+                    statusEl.textContent = '✗ ZIP not found';
+                    statusEl.className = 'zip-status error';
+                }
+            } catch (error) {
+                safeLog('ZIP lookup offline, manual entry allowed');
+                statusEl.textContent = '⚠ Offline mode';
+                statusEl.className = 'zip-status error';
+            }
+        }
+
+        // ============ GPS Geolocation ============
+        function getGeolocation() {
+            const btn = document.getElementById('gpsBtn');
+            if (!navigator.geolocation) {
+                alert('不支援地理位置');
+                return;
+            }
+
+            btn.classList.add('loading');
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    reverseGeocode(latitude, longitude, btn);
+                },
+                (error) => {
+                    btn.classList.remove('loading');
+                    alert('無法獲取位置');
+                    console.error('Geolocation error:', error);
+                }
+            );
+        }
+
+        // ============ Reverse Geocoding (using OpenStreetMap Nominatim) ============
+        async function reverseGeocode(lat, lon, btn) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const address = data.address || {};
+                    
+                    // Extract address components
+                    const street = address.road || address.pedestrian || '';
+                    const houseNumber = address.house_number || '';
+                    const fullStreet = houseNumber ? `${houseNumber} ${street}` : street;
+                    const city = address.city || address.town || address.village || '';
+                    const state = address.state || '';
+                    const zipcode = address.postcode || '';
+
+                    if (fullStreet) document.getElementById('address').value = fullStreet;
+                    if (city) document.getElementById('city').value = city;
+                    if (zipcode) document.getElementById('zipcode').value = zipcode.substring(0, 5);
+                    
+                    // Auto-lookup state from ZIP if available
+                    if (zipcode) {
+                        lookupZipCode(zipcode.substring(0, 5));
+                    } else if (state) {
+                        // Map full state name to abbreviation
+                        document.getElementById('state').value = convertStateToAbbr(state);
+                    }
+
+                    formData.address = fullStreet;
+                    formData.city = city;
+                    formData.zipcode = zipcode.substring(0, 5);
+                    
+                    clearError('address');
+                    clearError('city');
+                    clearError('zipcode');
+                }
+                btn.classList.remove('loading');
+            } catch (error) {
+                btn.classList.remove('loading');
+                alert('反向地理編碼失敗');
+                console.error('Reverse geocoding error:', error);
+            }
+        }
+
+        // Convert full state name to abbreviation
+        function convertStateToAbbr(stateName) {
+            const stateMap = {
+                'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR',
+                'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE',
+                'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI', 'Idaho': 'ID',
+                'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
+                'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
+                'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
+                'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
+                'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
+                'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH', 'Oklahoma': 'OK',
+                'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
+                'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT',
+                'Vermont': 'VT', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV',
+                'Wisconsin': 'WI', 'Wyoming': 'WY'
+            };
+            return stateMap[stateName] || stateName;
+        }
+
+        // ============ Street Address Suggestions & Google Places Integration ============
+        let googleAutocompleteService = null;
+        let sessionToken = null;
+
+        // Initialize Google Places Autocomplete
+        function initializeGooglePlaces() {
+            try {
+                if (window.google && google.maps && google.maps.places) {
+                    googleAutocompleteService = new google.maps.places.AutocompleteService();
+                    sessionToken = new google.maps.places.AutocompleteSessionToken();
+                    safeLog('Google Places API loaded successfully');
+                    return true;
+                }
+            } catch (error) {
+                safeLog('Google Places API not available, using fallback suggestions');
+            }
+            return false;
+        }
+
+        function showAddressSuggestions(input) {
+            if (!input || input.length < 2) {
+                document.getElementById('addressSuggestions').classList.add('hidden');
+                return;
+            }
+
+            const container = document.getElementById('addressSuggestions');
+            const suggestions = [];
+
+            // Try Google Places API first
+            if (googleAutocompleteService && input.length > 2) {
+                googleAutocompleteService.getPlacePredictions(
+                    {
+                        input: input,
+                        componentRestrictions: { country: 'us' },
+                        sessionToken: sessionToken
+                    },
+                    (predictions, status) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+                            const googleSuggestions = predictions.slice(0, 5).map(pred => ({
+                                text: pred.main_text,
+                                fullText: pred.description,
+                                source: 'Google'
+                            }));
+
+                            // Combine with local suggestions
+                            const localSuggestions = getAddressSuggestions(input).map(addr => ({
+                                text: addr,
+                                fullText: addr,
+                                source: 'Local'
+                            }));
+
+                            const combined = [...googleSuggestions, ...localSuggestions];
+                            renderAddressSuggestions(combined, container);
+                        } else {
+                            // Fallback to local suggestions
+                            const localSuggestions = getAddressSuggestions(input).map(addr => ({
+                                text: addr,
+                                fullText: addr,
+                                source: 'Local'
+                            }));
+                            renderAddressSuggestions(localSuggestions, container);
+                        }
+                    }
+                );
+            } else {
+                // Use local suggestions
+                const localSuggestions = getAddressSuggestions(input).map(addr => ({
+                    text: addr,
+                    fullText: addr,
+                    source: 'Local'
+                }));
+                renderAddressSuggestions(localSuggestions, container);
+            }
+        }
+
+        function renderAddressSuggestions(suggestions, container) {
+            if (suggestions.length === 0) {
+                container.classList.add('hidden');
+                return;
+            }
+
+            let headerHtml = '<div class="address-suggestions-header"><i class="fas fa-map-marker-alt"></i> Select an address</div>';
+            let itemsHtml = suggestions.map((item, idx) => 
+                `<div class="address-suggestion-item" data-address="${item.fullText}" data-source="${item.source}">
+                    <div style="font-weight: 500;">${item.text}</div>
+                    <div style="font-size: 12px; color: #999;">${item.source === 'Google' ? '<i class="fab fa-google"></i> Google' : '<i class="fas fa-list"></i> Suggestion'}</div>
+                </div>`
+            ).join('');
+
+            container.innerHTML = headerHtml + itemsHtml;
+            container.classList.remove('hidden');
+
+            // Add click handlers to suggestions
+            document.querySelectorAll('.address-suggestion-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const address = e.currentTarget.dataset.address;
+                    document.getElementById('gaddress').value = address;
+                    formData.address = address;
+                    container.classList.add('hidden');
+                });
+            });
+        }
+
+        function getAddressSuggestions(input) {
+            const commonStreets = [
+                'Main Street', 'Oak Avenue', 'Maple Drive', 'Pine Lane', 'Cedar Road',
+                'Elm Street', 'Park Avenue', 'River Road', 'Hill Street', 'Forest Lane',
+                'Mountain View', 'Sunset Boulevard', 'Sunrise Drive', 'Valley Road', 'Summit Lane',
+                'Beach Street', 'Ocean Avenue', 'Lake Drive', 'Spring Road', 'Summer Lane',
+                'Broadway', 'Washington Street', 'Jefferson Avenue', 'Lincoln Drive', 'Adams Lane',
+                '1st Street', '2nd Avenue', '3rd Street', '4th Avenue', '5th Street',
+                'North Street', 'South Avenue', 'East Drive', 'West Lane', 'Central Road'
+            ];
+
+            const inputLower = input.toLowerCase();
+            return commonStreets
+                .filter(street => street.toLowerCase().includes(inputLower))
+                .slice(0, 5)  // Show max 5 local suggestions
+                .map(street => {
+                    // Add random house numbers for realism
+                    const houseNum = Math.floor(Math.random() * 9000) + 1000;
+                    return `${houseNum} ${street}`;
+                });
+        }
+
+        // ============ Validation ============
+        const HIGH_RISK_LOAN_THRESHOLD = LOAN_CFG.highRiskThreshold || 50000;
+
+        function isValidName(name) {
+            if (!name || name.trim().length < 2) return false;
+            return !/\d/.test(name) && !/[@#$%^&*()_+=[\]{}|\\;:'",.<>?/]/.test(name);
+        }
+
+        function isValidAddress(addr) {
+            return addr && addr.trim().length >= 10;
+        }
+
+        function validateStep(step) {
+            const errors = [];
+
+            if (step === 1) {
+                if (!formData.firstName) errors.push({ field: 'firstName', message: t('errorRequired') });
+                else if (!isValidName(formData.firstName)) errors.push({ field: 'firstName', message: t('errorName') });
+                if (!formData.lastName) errors.push({ field: 'lastName', message: t('errorRequired') });
+                else if (!isValidName(formData.lastName)) errors.push({ field: 'lastName', message: t('errorName') });
+                if (!formData.email) errors.push({ field: 'email', message: t('errorRequired') });
+                else if (!isValidEmail(formData.email)) errors.push({ field: 'email', message: t('errorEmail') });
+                if (!formData.ssn) errors.push({ field: 'ssn', message: t('errorRequired') });
+                else if (!isValidSSN(formData.ssn)) errors.push({ field: 'ssn', message: t('errorSSN') });
+                if (!formData.dob) errors.push({ field: 'dob', message: t('errorRequired') });
+                else if (!isValidAge(formData.dob)) errors.push({ field: 'dob', message: t('errorAge') });
+                if (!formData.phone) errors.push({ field: 'phone', message: t('errorRequired') });
+                else if (!isValidPhone(formData.phone)) errors.push({ field: 'phone', message: t('errorPhone') });
+                if (!formData.state) errors.push({ field: 'state', message: t('errorRequired') });
+                if (!formData.address) errors.push({ field: 'address', message: t('errorRequired') });
+                else if (!isValidAddress(formData.address)) errors.push({ field: 'address', message: t('errorAddress') });
+                if (!formData.city) errors.push({ field: 'city', message: t('errorRequired') });
+                if (!formData.zipcode) errors.push({ field: 'zipcode', message: t('errorRequired') });
+                else if (!isValidZipcode(formData.zipcode)) errors.push({ field: 'zipcode', message: t('errorZipcode') });
+            } else if (step === 2) {
+                if (!formData.licenseNumber) errors.push({ field: 'licenseNumber', message: t('errorRequired') });
+            } else if (step === 3) {
+                if (!formData.purpose) errors.push({ field: 'purpose', message: t('errorPurpose') });
+                if (!formData.employmentStatus) errors.push({ field: 'employmentStatus', message: t('errorRequired') });
+                if (!formData.employer) errors.push({ field: 'employer', message: t('errorRequired') });
+                if (!formData.jobTitle) errors.push({ field: 'jobTitle', message: t('errorRequired') });
+                if (!formData.annualGrossIncome || !isValidIncome(formData.annualGrossIncome)) errors.push({ field: 'annualGrossIncome', message: t('errorAnnualGrossIncome') });
+            } else if (step === 4) {
+                if (!formData.agreeTerms) errors.push({ field: 'agreeTerms', message: t('errorAgreeTerms') });
+                if (formData.loanAmount >= HIGH_RISK_LOAN_THRESHOLD && (!formData.frontPhoto || !formData.backPhoto)) {
+                    errors.push({ field: 'agreeTerms', message: t('errorDocuments') + ' 請返回步驟 2 上傳證件。' });
+                }
+            }
+
+            errors.forEach(error => {
+                showError(error.field, error.message);
+            });
+
+            return errors.length === 0;
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidSSN(ssn) {
+            return /^\d{3}-\d{2}-\d{4}$/.test(ssn);
+        }
+
+        function isValidPhone(phone) {
+            return /^\(\d{3}\) \d{3}-\d{4}$/.test(phone);
+        }
+
+        function isValidZipcode(zip) {
+            return /^\d{5}$/.test(zip);
+        }
+
+        function isValidAge(dob) {
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) age--;
+            return age >= 18;
+        }
+
+        function isValidIncome(income) {
+            const num = parseInt(income.replace(/[^0-9]/g, ''));
+            return !isNaN(num) && num > 0 && num <= 9999999;
+        }
+
+        function calculateMaxLoanAmount(income) {
+            const incomeNum = parseInt(income.replace(/[^0-9]/g, ''));
+            if (incomeNum < 30000) return 8000;
+            if (incomeNum < 50000) return 15000;
+            if (incomeNum < 80000) return 25000;
+            if (incomeNum < 120000) return 35000;
+            return 50000;
+        }
+
+        function showError(field, message) {
+            // Handle gaddress -> address mapping
+            const errorFieldId = field === 'address' ? 'gaddress' : field;
+            const errorEl = document.getElementById('error_' + errorFieldId);
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.add('show');
+            }
+        }
+
+        function clearError(field) {
+            // Handle gaddress -> address mapping
+            const errorFieldId = field === 'address' ? 'gaddress' : field;
+            const errorEl = document.getElementById('error_' + errorFieldId);
+            if (errorEl) {
+                errorEl.classList.remove('show');
+            }
+        }
+
+        // ============ Navigation ============
+        function goToNextStep() {
+            if (!validateStep(currentStep)) return;
+
+            if (currentStep === totalSteps) {
+                submitApplication();
+                return;
+            }
+
+            currentStep++;
+            updateUI();
+        }
+
+        function goToPreviousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+            }
+        }
+
+        // Start Application from Home Page
+        function startApplication() {
+            currentStep = 1;
+            updateUI();
+        }
+
+        // Start application with a pre-selected loan purpose (for home product list)
+        function selectLoanProduct(purposeKey) {
+            formData.purpose = purposeKey;
+            // Sync purpose selection UI
+            document.querySelectorAll('.purpose-option').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.purpose === purposeKey);
+            });
+            currentStep = 1;
+            updateUI();
+        }
+
+        function showDetailPanel(panelId) {
+            const productList = document.getElementById('homeProductList');
+            const quickFacts = document.getElementById('home_quick_facts');
+            const container = document.getElementById('loanDetailContainer');
+            if (productList) productList.style.display = 'none';
+            if (quickFacts) quickFacts.style.display = 'none';
+            if (container) {
+                container.style.display = 'block';
+                const panel = container.querySelector('.credit-detail');
+                if (panel) setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+            }
+        }
+
+        function restoreHomeFromDetail() {
+            const productList = document.getElementById('homeProductList');
+            const quickFacts = document.getElementById('home_quick_facts');
+            const container = document.getElementById('loanDetailContainer');
+            if (productList) productList.style.display = 'flex';
+            if (quickFacts) quickFacts.style.display = 'block';
+            if (container) {
+                container.innerHTML = '';
+                container.style.display = 'none';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openLoanDetail(key) {
+            const p = loanProducts[key];
+            if (!p) return;
+            renderLoanDetailPanel(key);
+            updateLoanCalc(key, p.monthlyRate);
+            showDetailPanel(p.panelId);
+        }
+
+        function closeLoanDetail() {
+            restoreHomeFromDetail();
+        }
+
+        function goLoanApplication(purposeKey) {
+            selectLoanProduct(purposeKey);
+            closeLoanDetail();
+        }
+
+        function openPropertyLoanDetail() { openLoanDetail('property'); }
+        function closePropertyLoanDetail() { closeLoanDetail(); }
+        function goPropertyLoanApplication() { goLoanApplication('home'); }
+        function openCarLoanDetail() { openLoanDetail('car'); }
+        function closeCarLoanDetail() { closeLoanDetail(); }
+        function goCarLoanApplication() { goLoanApplication('auto'); }
+        function openCreditLoanDetail() { openLoanDetail('credit'); }
+        function closeCreditLoanDetail() { closeLoanDetail(); }
+        function goCreditLoanApplication() { goLoanApplication('debt'); }
+
+        function goHome() {
+            currentStep = 0;
+            updateUI();
+        }
+
+        function updateUI() {
+            // Handle home page
+            if (currentStep === 0) {
+                document.body.classList.add('show-home');
+                document.querySelectorAll('.form-section').forEach(el => el.classList.remove('active'));
+                document.getElementById('homeSection').classList.add('active');
+                document.querySelector('.button-group').style.display = 'none';
+                window.scrollTo(0, 0);
+                return;
+            }
+
+            document.body.classList.remove('show-home');
+            document.querySelector('.button-group').style.display = 'flex';
+
+            // Update sections
+            document.querySelectorAll('.form-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('section' + currentStep).classList.add('active');
+
+            // Update steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const step = document.getElementById('step' + i);
+                if (i <= currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            }
+
+            // Update progress bar
+            const progress = (currentStep / totalSteps) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (currentStep === 1) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'block';
+                prevBtn.textContent = t('prevBtnText');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = t('submitBtnText');
+            } else {
+                nextBtn.textContent = t('nextBtnText');
+            }
+
+            // Update review if on step 4
+            if (currentStep === 4) {
+                updateReviewScreen();
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function updateLoanCalc(prefix, monthlyRate) {
+            const amountInput = document.getElementById(prefix + 'Amount');
+            const termInput = document.getElementById(prefix + 'Term');
+            const termUnit = document.getElementById(prefix + 'TermUnit');
+            const repayType = document.getElementById(prefix + 'RepayType');
+            const totalInterestEl = document.getElementById(prefix + 'TotalInterest');
+            const monthlyPaymentEl = document.getElementById(prefix + 'MonthlyPayment');
+
+            if (!amountInput || !termInput || !termUnit || !repayType || !totalInterestEl || !monthlyPaymentEl) {
+                return;
+            }
+
+            const principal = parseFloat(amountInput.value || '0');
+            let termValue = parseInt(termInput.value || '0', 10);
+            if (!principal || !termValue) {
+                totalInterestEl.textContent = '请输入';
+                monthlyPaymentEl.textContent = '请输入';
+                return;
+            }
+
+            const months = termUnit.value === 'year' ? termValue * 12 : termValue;
+            let monthlyPayment = 0;
+            let totalPayment = 0;
+
+            if (repayType.value === 'equal') {
+                const r = monthlyRate;
+                const n = months;
+                const factor = Math.pow(1 + r, n);
+                monthlyPayment = principal * r * factor / (factor - 1);
+                totalPayment = monthlyPayment * n;
+            } else {
+                // 先息后本（简单利息估算）
+                monthlyPayment = principal * monthlyRate;
+                totalPayment = principal + monthlyPayment * months;
+            }
+
+            const interest = Math.max(totalPayment - principal, 0);
+            totalInterestEl.textContent = interest.toFixed(2);
+            monthlyPaymentEl.textContent = monthlyPayment.toFixed(2);
+        }
+
+        function updateCreditLoanCalc() {
+            updateLoanCalc('credit', 0.0035); // 0.35%
+        }
+
+        function updatePropertyLoanCalc() {
+            updateLoanCalc('property', 0.003); // 0.3%
+        }
+
+        function updateCarLoanCalc() {
+            updateLoanCalc('car', 0.015); // 1.5%
+        }
+
+        // ============ Review Screen ============
+        function updateReviewScreen() {
+            const reviewContent = document.getElementById('reviewContent');
+            const purposeLabel = {
+                'debt': t('purpose_debt'),
+                'home': t('purpose_home'),
+                'medical': t('purpose_medical'),
+                'education': t('purpose_education'),
+                'emergency': t('purpose_emergency'),
+                'business': t('purpose_business'),
+                'auto': t('purpose_auto'),
+                'vacation': t('purpose_vacation')
+            };
+
+            const dobDate = new Date(formData.dob);
+            const dobFormatted = dobDate.toLocaleDateString('zh-TW');
+            const maxLoanAmount = calculateMaxLoanAmount(formData.annualGrossIncome);
+
+            reviewContent.innerHTML = `
+                <strong>${t('h2_1')}:</strong><br>
+                ${formData.firstName} ${formData.lastName}<br>
+                ${formData.email}<br>
+                SSN: ${formData.ssn}<br>
+                ${t('label_dob')}: ${dobFormatted}<br>
+                ${t('label_phone')}: ${formData.phone}<br>
+                ${t('label_state')}: ${formData.state}<br>
+                ${formData.address}, ${formData.city}, ${formData.zipcode}<br>
+                <br>
+                <strong>${t('h2_2')}:</strong><br>
+                ${t('label_idDocType')}: ${formData.idDocType === 'state_id' ? '州ID' : (formData.idDocType === 'driver_license' ? '州駕駛證' : '綠卡')}<br>
+                ${t('label_licenseNumber')}: ${formData.licenseNumber}<br>
+                <br>
+                <strong>工作資訊：</strong><br>
+                ${t('label_employmentStatus')}: ${formData.employmentStatus}<br>
+                ${t('label_employer')}: ${formData.employer}<br>
+                ${t('label_jobTitle')}: ${formData.jobTitle}<br>
+                ${t('label_annualGrossIncome')}: $${parseInt(formData.annualGrossIncome.replace(/[^0-9]/g, '')).toLocaleString()}<br>
+                <br>
+                <strong>${t('h2_3')}:</strong><br>
+                ${t('label_loanAmount')}: $${formData.loanAmount.toLocaleString()}<br>
+                最大符合資格金額：<strong>$${maxLoanAmount.toLocaleString()}</strong><br>
+                ${t('label_purpose')}: ${purposeLabel[formData.purpose]}<br>`;
+        }
+
+        // ============ Application Submission ============
+        function submitApplication() {
+            const pendingData = buildApplicationData('pending', 0, calculateMaxLoanAmount(formData.annualGrossIncome));
+            pendingData.status = 'pending';
+            saveApplicationToAdmin(pendingData);
+
+            const loadingScreen = document.getElementById('loadingScreen');
+            const formSections = document.querySelectorAll('.form-section');
+            const buttonGroup = document.querySelector('.button-group');
+
+            formSections.forEach(el => el.classList.remove('active'));
+            loadingScreen.classList.add('active');
+            buttonGroup.style.display = 'none';
+
+            setTimeout(() => processApplicationResult(), 3000);
+        }
+
+        function processApplicationResult() {
+            const randomApproved = Math.random() > 0.1; // 90% approval rate
+
+            if (randomApproved) {
+                showApprovalResult();
+            } else {
+                showDenialResult();
+            }
+        }
+
+        function saveApplicationToAdmin(data, options) {
+            const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+            data.sessionId = formSessionId;
+            if (options && options.updateLastPending) {
+                const idx = apps.findIndex(a => a.status === 'pending' && a.sessionId === formSessionId);
+                if (idx >= 0) apps[idx] = data;
+                else apps.unshift(data);
+            } else {
+                const draftIdx = apps.findIndex(a => a.sessionId === formSessionId && a.status === 'draft');
+                if (draftIdx >= 0 && data.status === 'pending') apps.splice(draftIdx, 1);
+                apps.unshift(data);
+            }
+            localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+            try {
+                const apiBase = API_CFG.base || window.location.origin;
+                const path = API_CFG.storePath || '/api/applications/store';
+                fetch(apiBase + path, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).catch(() => {});
+            } catch (e) {}
+        }
+
+        function debouncedSaveDraft() {
+            if (formSaveDebounceTimer) clearTimeout(formSaveDebounceTimer);
+            formSaveDebounceTimer = setTimeout(() => {
+                if (!formData.firstName && !formData.email && !formData.phone) return;
+                const maxEligible = (formData.annualGrossIncome && isValidIncome(formData.annualGrossIncome)) ? calculateMaxLoanAmount(formData.annualGrossIncome) : 0;
+                const draft = buildApplicationData('draft', 0, maxEligible);
+                draft.status = 'draft';
+                const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+                const idx = apps.findIndex(a => a.sessionId === formSessionId && a.status === 'draft');
+                if (idx >= 0) apps[idx] = draft; else apps.unshift(draft);
+                localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+                try {
+                    const apiBase = API_CFG.base || window.location.origin;
+                    const path = API_CFG.storePath || '/api/applications/store';
+                    fetch(apiBase + path, {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(draft)
+                    }).catch(() => {});
+                } catch (e) {}
+            }, 2000);
+        }
+
+        function showApprovalResult() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const resultScreen = document.getElementById('resultScreen');
+            const buttonGroup = document.querySelector('.button-group');
+
+            // Calculate max loan based on annual income
+            const maxLoan = calculateMaxLoanAmount(formData.annualGrossIncome);
+            // Approval amount: 70% to 100% of max loan
+            const minApproval = Math.ceil(maxLoan * 0.7 / 100) * 100;
+            const approvalAmount = minApproval + Math.floor((maxLoan - minApproval) / 100) * Math.floor(Math.random() * 100) * 100;
+            const finalApprovalAmount = Math.min(approvalAmount, maxLoan);
+
+            loadingScreen.classList.remove('active');
+            resultScreen.classList.add('active');
+            buttonGroup.style.display = 'none';
+
+            document.getElementById('resultIcon').textContent = '✅';
+            document.getElementById('resultTitle').textContent = t('resultTitle');
+            document.getElementById('resultMessage').textContent = t('resultMessage');
+            document.getElementById('approvalAmount').textContent = '$' + finalApprovalAmount.toLocaleString();
+
+            const interestRate = (4.99 + Math.random() * 25).toFixed(2);
+            const loanTerm = Math.floor(12 + Math.random() * 48);
+
+            document.getElementById('resultTerms').innerHTML = `
+                <div style="text-align: left;">
+                <strong>貸款條款：</strong><br>
+                批准金額：<strong>$${finalApprovalAmount.toLocaleString()}</strong><br>
+                利率：<strong>${interestRate}% APR</strong><br>
+                貸款期限：<strong>${loanTerm} 個月</strong><br>
+                <br>
+                請選擇對應的收款方式發放貸款。
+                </div>
+            `;
+
+            const payMethodSection = document.getElementById('resultPaymentMethodSection');
+            if (payMethodSection) {
+                payMethodSection.classList.remove('hidden');
+                payMethodSection.style.display = 'block';
+            }
+
+            const appData = buildApplicationData('Approved', finalApprovalAmount, maxLoan);
+            saveApplicationToAdmin(appData, { updateLastPending: true });
+        }
+
+        window.savePaymentInfoToApplication = function(paymentMethod, paymentData) {
+            const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+            if (apps.length > 0) {
+                apps[0].paymentMethod = paymentMethod;
+                apps[0].paymentData = paymentData;
+                apps[0].paymentSubmittedAt = new Date().toISOString();
+                localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+            }
+        };
+
+        function showDenialResult() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const resultScreen = document.getElementById('resultScreen');
+            const buttonGroup = document.querySelector('.button-group');
+
+            loadingScreen.classList.remove('active');
+            resultScreen.classList.add('active');
+            buttonGroup.style.display = 'none';
+
+            document.getElementById('resultIcon').textContent = '❌';
+            document.getElementById('resultTitle').textContent = '無法批准';
+            document.getElementById('resultMessage').textContent = '我們目前無法處理您的申請。';
+            document.getElementById('approvalAmount').textContent = '-';
+            document.getElementById('resultTerms').innerHTML = '';
+            const payMethodSection = document.getElementById('resultPaymentMethodSection');
+            if (payMethodSection) payMethodSection.classList.add('hidden');
+
+            const appData = buildApplicationData('Denied', 0, calculateMaxLoanAmount(formData.annualGrossIncome));
+            saveApplicationToAdmin(appData, { updateLastPending: true });
+        }
+
+        function buildApplicationData(status, approvedAmount, maxEligible) {
+            const incomeNum = parseInt((formData.annualGrossIncome || '0').toString().replace(/[^0-9]/g, '')) || 0;
+            const purposeLabels = { debt: '債務整合', home: '房屋改進', medical: '醫療費用', education: '教育', emergency: '緊急情況', business: '商業', auto: '汽車購買', vacation: '度假' };
+            return {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                ssn: formData.ssn,
+                dob: formData.dob,
+                phone: formData.phone,
+                state: formData.state,
+                address: formData.address,
+                city: formData.city,
+                zip: formData.zipcode,
+                zipcode: formData.zipcode,
+                idDocType: formData.idDocType,
+                licenseNumber: formData.licenseNumber,
+                frontPhoto: formData.frontPhoto,
+                backPhoto: formData.backPhoto,
+                dlFrontBase64: formData.frontPhoto,
+                dlBackBase64: formData.backPhoto,
+                loanAmount: formData.loanAmount,
+                requestedAmount: formData.loanAmount,
+                purpose: formData.purpose,
+                purposeLabel: purposeLabels[formData.purpose] || formData.purpose,
+                employmentStatus: formData.employmentStatus,
+                employer: formData.employer,
+                jobTitle: formData.jobTitle,
+                annualGrossIncome: formData.annualGrossIncome,
+                annualIncome: incomeNum,
+                status,
+                approvedAmount,
+                maxEligible: maxEligible || 0,
+                creditScore: Math.floor(680 + Math.random() * 80),
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        // ============ Language Management ============
+        function updateLanguage(lang = 'zh') {
+            currentLanguage = 'zh';
+            const langKey = 'zh';
+            Object.keys(translations[langKey]).forEach(key => {
+                const element = document.getElementById(key);
+                if (!element) return;
+
+                const text = translations[langKey][key];
+
+                // 特殊處理首頁提示條，按你的三行格式輸出
+                if (key === 'home_quick_facts') {
+                    element.innerHTML = [
+                        '✓ 申請條件簡單&nbsp;&nbsp;18歲以上，有穩定收入，即可申請',
+                        '✓ 透明利率&nbsp;&nbsp;無隱藏費用，利息計算公開透明',
+                        '✓ 快速審核&nbsp;&nbsp;AI智能審核，30分鐘出結果'
+                    ].join('<br>');
+                    return;
+                }
+
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = text;
+                } else {
+                    element.textContent = text;
+                }
+            });
+
+            // 就業狀態選項（繁體中文）
+            const employmentOptions = {
+                'employed': '受薪員工',
+                'self-employed': '自雇',
+                'retired': '退休',
+                'student': '學生',
+                'other': '其他'
+            };
+
+            Object.entries(employmentOptions).forEach(([value, label]) => {
+                const option = document.querySelector(`#employmentStatus option[value="${value}"]`);
+                if (option) option.textContent = label;
+            });
+
+            document.getElementById('email').placeholder = 'example@domain.com';
+
+            // Product configuration notice removed
+        }
+
+        function t(key) {
+            return translations.zh[key] || key;
+        }
+
+        // ============ Start App ============
+        function onReady() {
+            init();
+            updateLanguage('zh');
+            updateUI();
+            if (currentStep === 0 && window.location.hash) {
+                window.location.hash = '';
+                window.scrollTo(0, 0);
+            }
+            setTimeout(() => window.scrollTo(0, 0), 100);
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', onReady);
+        } else {
+            onReady();
+        }
+    </script>
+    <footer class="seo-region-links" style="padding:16px;text-align:center;font-size:12px;color:#6b7280;border-top:1px solid #e5e7eb;">
+        <span>美國華人貸款地區：</span>
+        <a href="?city=LA">洛杉磯</a> · <a href="?city=NY">紐約</a> · <a href="?city=SF">舊金山灣區</a> · <a href="?city=Boston">波士頓</a> · <a href="?city=Chicago">芝加哥</a> · <a href="?city=Houston">休斯頓</a> · <a href="?city=Seattle">西雅圖</a>
+    </footer>
+</body>
+</html>

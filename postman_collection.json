@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "swiftloan-api-collection",
+    "name": "SwiftLoan USA API",
+    "description": "Complete API testing collection for SwiftLoan USA loan processing platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "Submit Loan Application",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"ssn\": \"123-45-6789\",\n  \"dob\": \"1990-01-15\",\n  \"phone\": \"(555) 123-4567\",\n  \"state\": \"CA\",\n  \"street\": \"123 Main St\",\n  \"city\": \"Los Angeles\",\n  \"zip\": \"90001\",\n  \"dlNumber\": \"DL123456\",\n  \"dlFrontBase64\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABA...\",\n  \"dlBackBase64\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABA...\",\n  \"employmentStatus\": \"Full-time\",\n  \"employer\": \"Tech Corp\",\n  \"jobTitle\": \"Software Engineer\",\n  \"annualIncome\": \"95000\",\n  \"bankName\": \"Chase\",\n  \"routing\": \"121000248\",\n  \"account\": \"123456789\",\n  \"accountType\": \"Checking\",\n  \"loanPurpose\": \"Debt\",\n  \"requestedAmount\": \"20000\",\n  \"incomeProofBase64\": \"data:application/pdf;base64,JVBERi0xLjQK...\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/applications",
+          "host": ["{{base_url}}"],
+          "path": ["api", "applications"]
+        }
+      }
+    },
+    {
+      "name": "Get All Applications (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-admin-key",
+            "value": "{{admin_key}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/admin/applications",
+          "host": ["{{base_url}}"],
+          "path": ["api", "admin", "applications"]
+        }
+      }
+    },
+    {
+      "name": "Get Single Application (Admin)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-admin-key",
+            "value": "{{admin_key}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/admin/applications/{{application_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "admin", "applications", "{{application_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Credit Check (Simulation)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ssn\": \"123-45-6789\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/credit-check",
+          "host": ["{{base_url}}"],
+          "path": ["api", "credit-check"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "admin_key",
+      "value": "super_secret_admin_key_change_this"
+    },
+    {
+      "key": "application_id",
+      "value": ""
+    }
+  ]
+}

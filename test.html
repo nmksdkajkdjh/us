@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Form Navigation</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .results { background: #f0f0f0; padding: 20px; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Form Navigation Test</h1>
+    <div id="results" class="results"></div>
+    
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        // Add message function
+        window.addMessage = function(text, type = 'info') {
+            const p = document.createElement('p');
+            p.textContent = text;
+            p.className = type;
+            resultsDiv.appendChild(p);
+        };
+        
+        // Create iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = 'http://localhost:5000';
+        iframe.style.width = '100%';
+        iframe.style.height = '800px';
+        iframe.style.marginTop = '20px';
+        iframe.id = 'appFrame';
+        
+        iframe.onload = function() {
+            window.addMessage('✓ App loaded', 'success');
+            
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const iframeWin = iframe.contentWindow;
+            
+            // Wait for scripts to initialize
+            setTimeout(() => {
+                try {
+                    window.addMessage('Checking window.currentStep: ' + iframeWin.currentStep, 'info');
+                    window.addMessage('Checking window.startApplication: ' + typeof iframeWin.startApplication, 'info');
+                    
+                    // Click Apply button
+                    const applyBtn = iframeDoc.querySelector('button[id="applyBtn"]');
+                    if (applyBtn) {
+                        applyBtn.click();
+                        window.addMessage('✓ Apply button clicked', 'success');
+                        
+                        setTimeout(() => {
+                            window.addMessage('Step after Apply: ' + iframeWin.currentStep, 'info');
+                            
+                            // Fill form
+                            iframeDoc.getElementById('firstName').value = 'John';
+                            iframeDoc.getElementById('firstName').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('lastName').value = 'Doe';
+                            iframeDoc.getElementById('lastName').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('email').value = 'john@example.com';
+                            iframeDoc.getElementById('email').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('ssn').value = '123-45-6789';
+                            iframeDoc.getElementById('ssn').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('dob').value = '1990-01-15';
+                            iframeDoc.getElementById('dob').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('phone').value = '(555) 123-4567';
+                            iframeDoc.getElementById('phone').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('state').value = 'California';
+                            iframeDoc.getElementById('state').dispatchEvent(new Event('change'));
+                            
+                            iframeDoc.getElementById('city').value = 'Los Angeles';
+                            iframeDoc.getElementById('city').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('zipcode').value = '90001';
+                            iframeDoc.getElementById('zipcode').dispatchEvent(new Event('input'));
+                            
+                            iframeDoc.getElementById('gaddress').value = '123 Main Street';
+                            iframeDoc.getElementById('gaddress').dispatchEvent(new Event('input'));
+                            
+                            window.addMessage('✓ Form data populated', 'success');
+                            window.addMessage('formData.address = ' + iframeWin.formData.address, 'info');
+                            window.addMessage('formData.firstName = ' + iframeWin.formData.firstName, 'info');
+                            
+                            setTimeout(() => {
+                                // Test validation
+                                const isValid = iframeWin.validateStep(iframeWin.currentStep);
+                                window.addMessage('Validation result: ' + (isValid ? 'PASS' : 'FAIL'), isValid ? 'success' : 'error');
+                                
+                                if (!isValid) {
+                                    const errors = iframeDoc.querySelectorAll('.error-message.show');
+                                    window.addMessage('Errors found: ' + errors.length, 'error');
+                                    errors.forEach(el => {
+                                        window.addMessage('  - ' + el.textContent, 'error');
+                                    });
+                                }
+                                
+                                // Click Next
+                                const nextBtn = iframeDoc.querySelector('button#nextBtn');
+                                if (nextBtn) {
+                                    window.addMessage('✓ Next button found', 'success');
+                                    nextBtn.click();
+                                    
+                                    setTimeout(() => {
+                                        window.addMessage('Step after Next: ' + iframeWin.currentStep, 'info');
+                                        const section = iframeDoc.querySelector('.form-section.active');
+                                        window.addMessage('Active section ID: ' + (section ? section.id : 'none'), 'info');
+                                    }, 100);
+                                }
+                            }, 100);
+                        }, 100);
+                    } else {
+                        window.addMessage('✗ Apply button not found', 'error');
+                    }
+                } catch (e) {
+                    window.addMessage('✗ Error: ' + e.message, 'error');
+                    window.addMessage('Stack: ' + e.stack.substring(0, 200), 'error');
+                }
+            }, 500);
+        };
+        
+        resultsDiv.appendChild(iframe);
+    </script>
+</body>
+</html>
+

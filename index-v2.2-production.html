@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SwiftLoan USA | Up to $50,000 - CASS Verified</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: #f3f4f6; }
+        .step { display: none; animation: fadeIn 0.3s ease-in; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .hero-bg { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); }
+        input[type="file"] { display: none; }
+        #addressSuggestions { max-height: 260px; overflow-y: auto; z-index: 50; }
+        .validation-success { color: #10b981; background: #ecfdf5; }
+        .validation-error { color: #ef4444; background: #fef2f2; }
+        .validation-warning { color: #d97706; background: #fffbeb; }
+        .correction-btn { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.8; } }
+        .loader { border: 4px solid #e5e7eb; border-top: 4px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl overflow-hidden">
+
+    <!-- ============ Step 1: Product Selection ============ -->
+    <div id="step1" class="step active">
+        <div class="hero-bg min-h-screen flex flex-col justify-start pt-20 pb-20 px-6 text-white">
+            <div class="flex items-center gap-3 mb-12 justify-center">
+                <i class="fas fa-bolt text-5xl"></i>
+                <div>
+                    <h1 class="text-4xl font-bold tracking-tight">SwiftLoan USA</h1>
+                    <p class="text-sm opacity-90">Fast Loan Approval in Minutes</p>
+                </div>
+            </div>
+
+            <p class="text-center text-xl font-semibold mb-12">Choose Your Loan Type</p>
+
+            <!-- Personal Loan Option -->
+            <button onclick="selectLoanType('personal')" class="w-full mb-6 p-8 bg-white bg-opacity-10 hover:bg-opacity-20 backdrop-blur-sm border-2 border-white rounded-3xl transition transform hover:scale-105 cursor-pointer text-left">
+                <div class="flex items-start gap-4">
+                    <div class="text-5xl flex-shrink-0">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2">Personal Loan</h2>
+                        <p class="text-sm opacity-90 mb-3">Unsecured Credit Loan</p>
+                        <ul class="text-xs space-y-1 opacity-85">
+                            <li><i class="fas fa-check mr-2"></i>Up to $50,000</li>
+                            <li><i class="fas fa-check mr-2"></i>No collateral required</li>
+                            <li><i class="fas fa-check mr-2"></i>Fast 5-minute approval</li>
+                            <li><i class="fas fa-check mr-2"></i>Funds in 24 hours</li>
+                        </ul>
+                    </div>
+                </div>
+            </button>
+
+            <!-- Mortgage Loan Option -->
+            <button onclick="selectLoanType('mortgage')" class="w-full p-8 bg-white bg-opacity-10 hover:bg-opacity-20 backdrop-blur-sm border-2 border-white rounded-3xl transition transform hover:scale-105 cursor-pointer text-left">
+                <div class="flex items-start gap-4">
+                    <div class="text-5xl flex-shrink-0">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2">Mortgage Loan</h2>
+                        <p class="text-sm opacity-90 mb-3">Property-Backed Home Loan</p>
+                        <ul class="text-xs space-y-1 opacity-85">
+                            <li><i class="fas fa-check mr-2"></i>Up to $1,000,000</li>
+                            <li><i class="fas fa-check mr-2"></i>Property as collateral</li>
+                            <li><i class="fas fa-check mr-2"></i>Lower interest rates</li>
+                            <li><i class="fas fa-check mr-2"></i>Flexible repayment terms</li>
+                        </ul>
+                    </div>
+                </div>
+            </button>
+
+            <p class="text-center text-xs opacity-75 mt-12">100% Secure • No Hidden Fees • Licensed & Regulated</p>
+        </div>
+    </div>
+
+    <!-- ============ Step 2: Application Form ============ -->
+    <div id="step2" class="step">
+        <div class="sticky top-0 bg-white border-b border-gray-200 z-20 px-6 py-4 shadow-sm">
+            <div class="flex items-center justify-between">
+                <button onclick="prevStep()" class="text-3xl text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="text-center">
+                    <h2 class="font-bold text-lg"><span id="loanTypeLabel">Personal Loan</span> Application</h2>
+                    <div class="text-xs text-gray-500 mt-1">Step <span id="stepNum">1</span> of 4</div>
+                </div>
+                <div class="w-10"></div>
+            </div>
+            <!-- Progress bar -->
+            <div class="h-1 bg-gray-100 rounded-full mt-3 overflow-hidden">
+                <div id="progressBar" class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 w-0 transition-all duration-300"></div>
+            </div>
+        </div>
+
+        <div class="p-6 space-y-8 pb-20 overflow-auto" style="max-height: calc(100vh - 140px)">
+            <form id="loanForm" onsubmit="return false;">
+
+                <!-- Section 1: Personal Details -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-user-circle text-blue-600"></i> Personal Details
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">FIRST NAME</label>
+                            <input id="firstName" type="text" required placeholder="John" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">LAST NAME</label>
+                            <input id="lastName" type="text" required placeholder="Doe" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">SOCIAL SECURITY NUMBER (SSN)</label>
+                        <input id="ssn" type="text" maxlength="11" placeholder="123-45-6789" required
+                               oninput="formatSSN(this)"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 font-mono transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">DATE OF BIRTH</label>
+                        <input id="dob" type="date" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                </div>
+
+                <!-- Section 2: Contact & License -->
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-phone text-purple-600"></i> Contact & ID
+                    </h3>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">PHONE NUMBER</label>
+                        <input id="phone" type="tel" maxlength="14" placeholder="(555) 123-4567" required
+                               oninput="formatPhone(this)"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 font-mono transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">DRIVER'S LICENSE / STATE ID</label>
+                        <input id="dlNumber" type="text" placeholder="D12345678" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">UPLOAD DRIVER'S LICENSE</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div onclick="triggerUpload('dlFront')" class="border-2 border-dashed border-purple-300 hover:border-purple-500 rounded-3xl h-32 flex flex-col items-center justify-center cursor-pointer transition bg-white">
+                                <i class="fas fa-camera text-4xl text-purple-300 mb-2"></i>
+                                <p class="text-xs text-gray-600 font-medium">Front Side</p>
+                                <input type="file" id="dlFront" accept="image/*" capture="environment" class="hidden" onchange="previewImage(this,'previewFront')">
+                                <div id="previewFront" class="hidden w-full h-full p-1 rounded-3xl overflow-hidden"></div>
+                            </div>
+                            <div onclick="triggerUpload('dlBack')" class="border-2 border-dashed border-purple-300 hover:border-purple-500 rounded-3xl h-32 flex flex-col items-center justify-center cursor-pointer transition bg-white">
+                                <i class="fas fa-camera text-4xl text-purple-300 mb-2"></i>
+                                <p class="text-xs text-gray-600 font-medium">Back Side</p>
+                                <input type="file" id="dlBack" accept="image/*" capture="environment" class="hidden" onchange="previewImage(this,'previewBack')">
+                                <div id="previewBack" class="hidden w-full h-full p-1 rounded-3xl overflow-hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Residential Address - CASS VERIFIED -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-3xl p-6 space-y-6 relative">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-lg flex items-center gap-2">
+                            <i class="fas fa-home text-green-600"></i> Residential Address
+                            <span class="text-xs bg-green-200 text-green-800 px-3 py-1 rounded-full font-semibold">
+                                <i class="fas fa-shield-alt"></i> CASS Verified
+                            </span>
+                        </h3>
+                        <button type="button" onclick="detectCurrentAddress()" class="flex items-center gap-2 text-sm bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-medium transition shadow-md">
+                            <i class="fas fa-location-dot"></i> GPS Auto
+                        </button>
+                    </div>
+
+                    <!-- Validation Display -->
+                    <div id="addressValidationResult" class="hidden p-4 rounded-2xl text-sm border-2 animate-fadeIn"></div>
+
+                    <!-- Street Address -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">STREET ADDRESS</label>
+                        <div class="relative">
+                            <input id="street" type="text" required placeholder="123 Main Street" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition"
+                                   oninput="showStreetSuggestions(this); debounceValidateAddress()">
+                            <div id="addressSuggestions" class="hidden absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-2xl mt-1 shadow-xl z-50"></div>
+                        </div>
+                    </div>
+
+                    <!-- City, ZIP, State -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">CITY</label>
+                            <input id="city" type="text" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition" 
+                                   oninput="debounceValidateAddress()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">ZIP</label>
+                            <input id="zip" type="text" maxlength="10" placeholder="12345" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-green-500 focus:ring-2 focus:ring-green-200 font-mono transition" 
+                                   oninput="autoFillZIP(this); debounceValidateAddress()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-2">STATE</label>
+                            <select id="state" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-green-500 focus:ring-2 focus:ring-green-200 transition" 
+                                    onchange="debounceValidateAddress()"></select>
+                        </div>
+                    </div>
+
+                    <!-- Verification Buttons -->
+                    <div class="flex gap-2 pt-2">
+                        <button type="button" onclick="runCASSValidation()" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white text-xs py-3 rounded-2xl font-bold transition shadow-md flex items-center justify-center gap-2">
+                            <i class="fas fa-check-circle"></i> CASS Check
+                        </button>
+                        <button type="button" onclick="runFullValidation()" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs py-3 rounded-2xl font-bold transition shadow-md flex items-center justify-center gap-2">
+                            <i class="fas fa-shield-alt"></i> Full Verify
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section 4: Employment & Income -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-briefcase text-amber-600"></i> Employment & Income
+                    </h3>
+                    <select id="employmentStatus" required class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition">
+                        <option value="">-- Select Employment Status --</option>
+                        <option value="Full-time">Full-time Employed</option>
+                        <option value="Part-time">Part-time Employed</option>
+                        <option value="Self-employed">Self-employed / Business Owner</option>
+                        <option value="Retired">Retired</option>
+                        <option value="Student">Student</option>
+                        <option value="Homemaker">Homemaker</option>
+                    </select>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">EMPLOYER NAME</label>
+                        <input id="employer" type="text" required placeholder="Acme Corp" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">JOB TITLE</label>
+                        <input id="jobTitle" type="text" required placeholder="Software Engineer" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">ANNUAL INCOME (USD)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-gray-400">$</span>
+                            <input id="annualIncome" type="number" min="15000" step="1000" required placeholder="50000" 
+                                   class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-2xl focus:border-amber-500 focus:ring-2 focus:ring-amber-200 transition">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Bank Account -->
+                <div class="bg-gradient-to-br from-red-50 to-rose-50 border border-red-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-university text-red-600"></i> Bank Account
+                    </h3>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">BANK NAME</label>
+                        <input id="bankName" type="text" required placeholder="Chase Bank" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-red-500 focus:ring-2 focus:ring-red-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">ROUTING NUMBER</label>
+                        <input id="routing" type="text" maxlength="9" placeholder="021000021" required
+                               oninput="this.value=this.value.replace(/\D/g,'').substring(0,9)"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-red-500 focus:ring-2 focus:ring-red-200 font-mono transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">ACCOUNT NUMBER</label>
+                        <input id="account" type="text" maxlength="17" placeholder="123456789012345" required
+                               oninput="this.value=this.value.replace(/\D/g,'').substring(0,17)"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-red-500 focus:ring-2 focus:ring-red-200 font-mono transition">
+                    </div>
+                    <select id="accountType" required class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-red-500 focus:ring-2 focus:ring-red-200 transition">
+                        <option value="">-- Select Account Type --</option>
+                        <option value="Checking">Checking Account</option>
+                        <option value="Savings">Savings Account</option>
+                        <option value="Money Market">Money Market</option>
+                    </select>
+                </div>
+
+                <!-- Section 6: Income Proof -->
+                <div class="bg-gradient-to-br from-cyan-50 to-blue-50 border border-cyan-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-file-invoice text-cyan-600"></i> Income Proof
+                    </h3>
+                    <div onclick="document.getElementById('incomeProof').click()" class="border-3 border-dashed border-cyan-300 rounded-3xl h-40 flex flex-col items-center justify-center cursor-pointer hover:bg-cyan-50 transition bg-white">
+                        <i class="fas fa-cloud-upload-alt text-5xl text-cyan-400 mb-3"></i>
+                        <p class="font-medium text-gray-700">Upload Paystub / W-2</p>
+                        <p class="text-xs text-gray-500 mt-1">PDF or Image (Max 5MB)</p>
+                        <input type="file" id="incomeProof" accept="image/*,.pdf" class="hidden" onchange="previewIncome(this)">
+                    </div>
+                    <div id="incomePreview" class="hidden rounded-2xl overflow-hidden border-2 border-cyan-300"></div>
+                </div>
+
+                <!-- Section 7: Loan Amount -->
+                <div id="sectionLoanAmount" class="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-money-bill-wave text-indigo-600"></i> Requested Loan Amount
+                    </h3>
+                    <div class="flex items-center gap-4">
+                        <input type="range" id="amountRange" min="1000" max="50000" step="500" value="15000" 
+                               class="flex-1 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-indigo-600" 
+                               oninput="updateAmountDisplay()">
+                        <div class="text-right">
+                            <div id="amountDisplay" class="font-bold text-4xl text-indigo-600">$15,000</div>
+                            <div class="text-xs text-gray-500 mt-1">Monthly est: <span id="monthlyEst">$450</span></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 pt-2">
+                        <button type="button" onclick="setQuickAmount(10000)" class="py-2 text-sm font-medium border border-indigo-300 rounded-xl hover:bg-indigo-50 transition">$10k</button>
+                        <button type="button" onclick="setQuickAmount(25000)" class="py-2 text-sm font-medium border border-indigo-300 rounded-xl hover:bg-indigo-50 transition">$25k</button>
+                        <button type="button" onclick="setQuickAmount(50000)" class="py-2 text-sm font-medium border border-indigo-300 rounded-xl hover:bg-indigo-50 transition">$50k</button>
+                    </div>
+                </div>
+
+                <!-- Section 7B: Property Info (Mortgage Only) -->
+                <div id="sectionPropertyInfo" class="hidden bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 rounded-3xl p-6 space-y-6">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-building text-orange-600"></i> Property Information
+                    </h3>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">PROPERTY VALUE (Est. Current Market Value)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-gray-400">$</span>
+                            <input id="propertyValue" type="number" min="50000" step="10000" placeholder="250000" 
+                                   class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-2xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">PROPERTY ADDRESS</label>
+                        <input id="propertyAddress" type="text" placeholder="123 Main Street" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">PURCHASE PRICE</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-gray-400">$</span>
+                            <input id="purchasePrice" type="number" min="50000" step="10000" placeholder="200000" 
+                                   class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-2xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-2">LOAN PURPOSE</label>
+                        <select id="loanPurpose" class="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition">
+                            <option value="">-- Select Loan Purpose --</option>
+                            <option value="Purchase">Home Purchase</option>
+                            <option value="Refinance">Refinance</option>
+                            <option value="CashOut">Cash Out Refinance</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <input type="range" id="mortgageRange" min="50000" max="1000000" step="50000" value="200000" 
+                               class="flex-1 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-orange-600" 
+                               oninput="updateMortgageAmountDisplay()">
+                        <div class="text-right">
+                            <div id="mortgageDisplay" class="font-bold text-4xl text-orange-600">$200,000</div>
+                            <div class="text-xs text-gray-500 mt-1">Monthly est: <span id="monthlyMortgage">$1,200</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" onclick="submitApplicationForm()" class="mt-8 w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-5 rounded-3xl text-xl shadow-xl transition transform hover:scale-105 flex items-center justify-center gap-3">
+                    <i class="fas fa-arrow-right"></i> Continue to Credit Check
+                </button>
+
+                <!-- Demo Mode Button -->
+                <button type="button" onclick="loadDemoData(); setTimeout(() => submitApplicationForm(), 100)" class="mt-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-3xl text-sm shadow-md transition flex items-center justify-center gap-2">
+                    <i class="fas fa-magic"></i> DEMO: Auto-Fill & Submit
+                </button>
+
+                <p class="text-center text-xs text-gray-500 mt-4">
+                    <i class="fas fa-lock text-gray-400"></i> Your information is encrypted and secure
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ Step 3: Credit Check ============ -->
+    <div id="step3" class="step h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="loader mb-8"></div>
+        <h3 class="text-3xl font-bold text-gray-800 mb-2">Running Credit Check</h3>
+        <p class="text-gray-600 mb-12">Soft inquiry • No credit score impact • 30 seconds</p>
+        <div class="w-64 h-2 bg-gray-300 rounded-full overflow-hidden">
+            <div id="creditProgress" class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 w-0 transition-all duration-2000"></div>
+        </div>
+    </div>
+
+    <!-- ============ Step 4: Final Approval ============ -->
+    <div id="step4" class="step h-screen flex flex-col items-center justify-center text-center px-6 bg-gradient-to-br from-indigo-50 to-purple-50">
+        <div class="loader mb-8"></div>
+        <h3 class="text-3xl font-bold text-gray-800 mb-2">Final Approval Processing</h3>
+        <p class="text-gray-600 mb-12">Verifying all information...</p>
+        <div class="w-64 h-2 bg-gray-300 rounded-full overflow-hidden">
+            <div id="finalProgress" class="h-full bg-gradient-to-r from-indigo-500 to-purple-600 w-0 transition-all duration-2500"></div>
+        </div>
+    </div>
+
+    <!-- ============ Step KYC: Document Upload ============ -->
+    <div id="stepKYC" class="step">
+        <div class="sticky top-0 bg-white border-b border-gray-200 z-20 px-6 py-4 shadow-sm">
+            <div class="flex items-center justify-between">
+                <button onclick="prevStepKYC()" class="text-3xl text-gray-400 hover:text-gray-600 transition">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="text-center">
+                    <h2 class="font-bold text-lg">KYC Verification</h2>
+                    <div class="text-xs text-gray-500 mt-1">Upload Required Documents</div>
+                </div>
+                <div class="w-10"></div>
+            </div>
+        </div>
+
+        <div class="p-6 space-y-6 pb-20 overflow-auto" style="max-height: calc(100vh - 140px)">
+            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+                <p class="text-sm text-blue-800"><strong>Required Documents:</strong> All three must be uploaded before proceeding to payment.</p>
+            </div>
+
+            <!-- ID Front -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                    <i class="fas fa-check-circle text-red-500"></i> GOVERNMENT ID / DRIVER LICENSE - FRONT
+                </label>
+                <div onclick="triggerKYCUpload('idFront')" class="border-2 border-dashed border-blue-300 hover:border-blue-500 rounded-2xl h-40 flex flex-col items-center justify-center cursor-pointer transition bg-white">
+                    <i class="fas fa-camera text-5xl text-blue-300 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-medium">Click to Upload Front Side</p>
+                    <input type="file" id="idFront" accept="image/*" class="hidden" onchange="previewKYCImage(this, 'previewIdFront')">
+                    <div id="previewIdFront" class="hidden w-full h-full p-2 rounded-xl overflow-hidden"><img class="w-full h-full object-cover" /></div>
+                </div>
+                <div id="statusIdFront" class="text-xs text-gray-500 mt-2"></div>
+            </div>
+
+            <!-- ID Back -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                    <i class="fas fa-check-circle text-red-500"></i> GOVERNMENT ID / DRIVER LICENSE - BACK
+                </label>
+                <div onclick="triggerKYCUpload('idBack')" class="border-2 border-dashed border-purple-300 hover:border-purple-500 rounded-2xl h-40 flex flex-col items-center justify-center cursor-pointer transition bg-white">
+                    <i class="fas fa-camera text-5xl text-purple-300 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-medium">Click to Upload Back Side</p>
+                    <input type="file" id="idBack" accept="image/*" class="hidden" onchange="previewKYCImage(this, 'previewIdBack')">
+                    <div id="previewIdBack" class="hidden w-full h-full p-2 rounded-xl overflow-hidden"><img class="w-full h-full object-cover" /></div>
+                </div>
+                <div id="statusIdBack" class="text-xs text-gray-500 mt-2"></div>
+            </div>
+
+            <!-- SSN Card -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                    <i class="fas fa-check-circle text-red-500"></i> SOCIAL SECURITY CARD
+                </label>
+                <div onclick="triggerKYCUpload('ssnCard')" class="border-2 border-dashed border-green-300 hover:border-green-500 rounded-2xl h-40 flex flex-col items-center justify-center cursor-pointer transition bg-white">
+                    <i class="fas fa-camera text-5xl text-green-300 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-medium">Click to Upload SSN Card</p>
+                    <input type="file" id="ssnCard" accept="image/*" class="hidden" onchange="previewKYCImage(this, 'previewSSN')">
+                    <div id="previewSSN" class="hidden w-full h-full p-2 rounded-xl overflow-hidden"><img class="w-full h-full object-cover" /></div>
+                </div>
+                <div id="statusSsnCard" class="text-xs text-gray-500 mt-2"></div>
+            </div>
+
+            <!-- Optional Selfie -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                    <i class="fas fa-circle text-gray-400"></i> SELFIE WITH ID (Optional)
+                </label>
+                <div onclick="triggerKYCUpload('selfie')" class="border-2 border-dashed border-gray-300 hover:border-gray-500 rounded-2xl h-40 flex flex-col items-center justify-center cursor-pointer transition bg-white">
+                    <i class="fas fa-camera text-5xl text-gray-300 mb-2"></i>
+                    <p class="text-sm text-gray-600 font-medium">Click to Upload Selfie</p>
+                    <input type="file" id="selfie" accept="image/*" class="hidden" onchange="previewKYCImage(this, 'previewSelfie')">
+                    <div id="previewSelfie" class="hidden w-full h-full p-2 rounded-xl overflow-hidden"><img class="w-full h-full object-cover" /></div>
+                </div>
+                <div id="statusSelfie" class="text-xs text-gray-500 mt-2"></div>
+            </div>
+
+            <button id="submitKYCBtn" onclick="submitKYCDocuments()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-2xl text-lg shadow-lg transition flex items-center justify-center gap-2" disabled>
+                <i class="fas fa-cloud-upload-alt"></i> Upload & Continue to Payment
+            </button>
+
+            <p class="text-center text-xs text-gray-500">
+                <i class="fas fa-lock text-gray-400"></i> Your documents are encrypted and stored securely
+            </p>
+        </div>
+    </div>
+
+    <!-- ============ Step Payment: Fees & Receipt Upload ============ -->
+    <div id="stepPayment" class="step h-screen flex flex-col items-center justify-start text-center px-6 bg-white overflow-auto">
+        <div class="w-full max-w-md mt-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Application Fee Required</h3>
+            <p class="text-gray-600 mb-6">To proceed with funding, please submit the non-refundable application processing fee.</p>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-2xl p-4 mb-4 text-left">
+                <p class="text-sm text-gray-700">Application ID: <span id="payAppId" class="font-mono text-sm text-gray-800"></span></p>
+                <p class="text-sm text-gray-700">Approved Amount: <span id="payApprovedAmount" class="font-bold text-lg text-green-600">$0</span></p>
+            </div>
+
+            <!-- Fee Selection -->
+            <div class="bg-white border rounded-2xl p-4 mb-4">
+                <p class="font-semibold mb-3">Choose Fee Option</p>
+                <div class="flex gap-3 mb-4">
+                    <button id="fee99" class="px-4 py-3 bg-yellow-100 rounded-xl border-2 border-yellow-300 font-medium text-yellow-800" onclick="selectFee(99)">$99 (Standard)</button>
+                    <button id="fee199" class="px-4 py-3 bg-yellow-50 rounded-xl border border-yellow-200 font-medium" onclick="selectFee(199)">$199 (Rush)</button>
+                </div>
+            </div>
+
+            <!-- Payment Method Tabs -->
+            <div class="mb-4">
+                <div class="flex gap-2 mb-4 border-b border-gray-200">
+                    <button id="tabZelle" class="px-4 py-2 font-medium text-blue-600 border-b-2 border-blue-600 cursor-pointer" onclick="switchPaymentTab('zelle')">Zelle</button>
+                    <button id="tabCashApp" class="px-4 py-2 font-medium text-gray-600 cursor-pointer" onclick="switchPaymentTab('cashapp')">Cash App</button>
+                    <button id="tabWeChat" class="px-4 py-2 font-medium text-gray-600 cursor-pointer" onclick="switchPaymentTab('wechat')">微信</button>
+                </div>
+
+                <!-- Zelle Tab -->
+                <div id="panelZelle" class="p-4 border rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100">
+                    <p class="text-xs text-gray-600 mb-2">Zelle Information</p>
+                    <div class="bg-white rounded-xl p-3 mb-3">
+                        <p class="font-bold text-blue-700">zelle@example.com</p>
+                        <p class="text-xs text-gray-500">Amount: <span id="zelleAmount">$99</span></p>
+                    </div>
+                    <div class="w-48 h-48 bg-gray-200 mx-auto flex items-center justify-center rounded-lg mb-3">QR Code Placeholder</div>
+                    <p class="text-xs text-gray-600 mb-2">After transfer, upload screenshot as proof</p>
+                </div>
+
+                <!-- Cash App Tab -->
+                <div id="panelCashApp" class="p-4 border rounded-2xl bg-gradient-to-br from-green-50 to-green-100 hidden">
+                    <p class="text-xs text-gray-600 mb-2">Cash App Information</p>
+                    <div class="bg-white rounded-xl p-3 mb-3">
+                        <p class="font-bold text-green-700">$SwiftLoanInc</p>
+                        <p class="text-xs text-gray-500">Amount: <span id="cashappAmount">$99</span></p>
+                    </div>
+                    <div class="w-48 h-48 bg-gray-200 mx-auto flex items-center justify-center rounded-lg mb-3">QR Code Placeholder</div>
+                    <p class="text-xs text-gray-600 mb-2">After transfer, upload screenshot as proof</p>
+                </div>
+
+                <!-- WeChat Tab -->
+                <div id="panelWeChat" class="p-4 border rounded-2xl bg-gradient-to-br from-green-50 to-emerald-100 hidden">
+                    <p class="text-xs text-gray-600 mb-2">微信支付信息</p>
+                    <div class="bg-white rounded-xl p-3 mb-3">
+                        <p class="font-bold text-green-700">SwiftLoanUSA</p>
+                        <p class="text-xs text-gray-500">金额: <span id="wechatAmount">$99</span></p>
+                        <p class="text-xs text-gray-500 mt-1">备注: Loan-<span id="loanIdNote">-</span> Form Fee</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3 mb-3">
+                        <img src="/qr/wechat-pay.png" alt="WeChat QR Code" class="w-48 h-48 mx-auto rounded-lg" onerror="this.innerHTML='<div class=\'flex items-center justify-center w-full h-full bg-gray-200\'>WeChat QR</div>'">
+                    </div>
+                    <p class="text-xs text-gray-600 mb-2">支付完成后请上传转账截图作为凭证</p>
+                </div>
+            </div>
+
+            <!-- Receipt Upload -->
+            <div class="mb-4">
+                <label class="block text-xs font-semibold text-gray-600 mb-2">Upload Payment Receipt / Proof</label>
+                <input type="file" id="paymentReceipt" accept="image/*,.pdf" class="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            </div>
+
+            <button id="uploadPayBtn" onclick="uploadPaymentReceipt()" class="w-full bg-blue-600 text-white py-3 rounded-2xl font-bold mb-3 hover:bg-blue-700">I Paid — Upload Receipt</button>
+            <button onclick="proceedToApproval()" class="w-full bg-green-600 text-white py-3 rounded-2xl font-bold mb-3 hover:bg-green-700">Proceed to Approval Screen</button>
+            <button onclick="autoConfirmDemo()" class="w-full bg-gray-100 text-gray-800 py-3 rounded-2xl font-medium hover:bg-gray-200">Simulate Admin Confirm (Demo)</button>
+
+            <p class="text-xs text-gray-500 mt-6">After admin confirmation the loan will move to funding.</p>
+        </div>
+    </div>
+
+    <!-- ============ Step 5: Approved ============ -->
+    <div id="step5" class="step">
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 min-h-screen pt-16 pb-20 px-6 flex flex-col items-center">
+            <div class="w-32 h-32 bg-green-100 rounded-full flex items-center justify-center mb-8 animate-bounce">
+                <i class="fas fa-check-circle text-green-600 text-7xl"></i>
+            </div>
+            <h2 class="text-5xl font-bold text-green-600 mb-4">Approved!</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-xs">Congratulations! Your loan application has been approved by our lenders.</p>
+            
+            <div class="bg-white border-3 border-green-400 rounded-3xl p-8 w-full mb-8 shadow-lg">
+                <div class="text-center">
+                    <p class="text-sm font-semibold text-gray-600 mb-2">Approved Loan Amount</p>
+                    <div id="approvedAmount" class="text-6xl font-bold text-green-600 mb-4">$28,500</div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-green-50 rounded-2xl p-3">
+                            <p class="text-gray-600 text-xs">Interest Rate</p>
+                            <p class="font-bold text-lg text-green-600">8.5%</p>
+                        </div>
+                        <div class="bg-green-50 rounded-2xl p-3">
+                            <p class="text-gray-600 text-xs">Monthly Payment</p>
+                            <p class="font-bold text-lg text-green-600" id="monthlyPayment">$856</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="borrowNow()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-5 rounded-3xl text-lg shadow-lg transition transform hover:scale-105 flex items-center justify-center gap-2 mb-3">
+                <i class="fas fa-check"></i> Accept & Proceed to Funding
+            </button>
+            <button onclick="resetApp()" class="w-full text-gray-600 hover:text-gray-800 font-semibold py-4 transition">
+                <i class="fas fa-redo"></i> New Application
+            </button>
+
+            <p class="text-xs text-gray-500 text-center mt-8">
+                Funds will be deposited within 24 hours • Interest starts after 30 days
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ====================== CONFIG ======================
+    const SMARTY_AUTH_ID = "YOUR_SMARTY_AUTH_ID";           // ← Get from smarty.com
+    const SMARTY_AUTH_TOKEN = "YOUR_SMARTY_AUTH_TOKEN";     // ← Get from smarty.com
+    const ZIP_API_URL = "https://api.zippopotam.us/us/";
+    const NOMINATIM_API = "https://nominatim.openstreetmap.org/reverse?format=json";
+
+    // ====================== Global State ======================
+    let loanType = 'personal'; // 'personal' or 'mortgage'
+
+    function selectLoanType(type) {
+        loanType = type;
+        const label = type === 'personal' ? 'Personal Loan' : 'Mortgage Loan';
+        document.getElementById('loanTypeLabel').textContent = label;
+        
+        // Show/hide sections based on loan type
+        const isPersonal = type === 'personal';
+        document.getElementById('sectionLoanAmount').style.display = isPersonal ? 'block' : 'none';
+        document.getElementById('sectionPropertyInfo').style.display = isPersonal ? 'none' : 'block';
+        
+        // Navigate to application form
+        nextStep(2);
+    }
+
+    // ====================== 50 US States + DC ======================
+    const statesList = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+    
+    // Initialize States dropdown
+    statesList.forEach(state => {
+        const opt = document.createElement('option');
+        opt.value = opt.textContent = state;
+        document.getElementById('state').appendChild(opt);
+    });
+
+    // ====================== ZIP Database (Local + Online Fallback) ======================
+    const localZIPDB = {
+        "10001": {city:"New York", state:"NY", lat:40.7506, lon:-73.9972},
+        "90210": {city:"Beverly Hills", state:"CA", lat:34.0901, lon:-118.4065},
+        "33101": {city:"Miami", state:"FL", lat:25.7617, lon:-80.1918},
+        "60601": {city:"Chicago", state:"IL", lat:41.8819, lon:-87.6278},
+        "77001": {city:"Houston", state:"TX", lat:29.7589, lon:-95.3677},
+        "94102": {city:"San Francisco", state:"CA", lat:37.7749, lon:-122.4194},
+        "20001": {city:"Washington", state:"DC", lat:38.9072, lon:-77.0369},
+        "30301": {city:"Atlanta", state:"GA", lat:33.7490, lon:-84.3880},
+        "48226": {city:"Detroit", state:"MI", lat:42.3314, lon:-83.0458},
+        "98101": {city:"Seattle", state:"WA", lat:47.6062, lon:-122.3321},
+        "19101": {city:"Philadelphia", state:"PA", lat:39.9526, lon:-75.1652},
+        "80202": {city:"Denver", state:"CO", lat:39.7392, lon:-104.9903},
+        "85001": {city:"Phoenix", state:"AZ", lat:33.4484, lon:-112.0742},
+        "37201": {city:"Nashville", state:"TN", lat:36.1627, lon:-86.7816},
+        "75201": {city:"Dallas", state:"TX", lat:32.7767, lon:-96.7970},
+    };
+
+    async function autoFillZIP(input) {
+        const zip = input.value.trim().replace(/\D/g, '').substring(0, 5);
+        if (zip.length !== 5) return;
+
+        // 1. Local lookup
+        if (localZIPDB[zip]) {
+            document.getElementById('city').value = localZIPDB[zip].city;
+            document.getElementById('state').value = localZIPDB[zip].state;
+            return;
+        }
+
+        // 2. Online API lookup
+        try {
+            const res = await fetch(`${ZIP_API_URL}${zip}`);
+            if (res.ok) {
+                const data = await res.json();
+                const place = data.places[0];
+                document.getElementById('city').value = place['place name'];
+                document.getElementById('state').value = place['state abbreviation'];
+            }
+        } catch(e) { /* Continue in offline mode */ }
+    }
+
+    // ====================== Street Suggestions (Smart Local Recognition) ======================
+    const commonStreetPatterns = [
+        "123 Main Street, New York, NY 10001",
+        "456 Oak Avenue, Los Angeles, CA 90001",
+        "789 Pine Road, Chicago, IL 60601",
+        "101 Maple Lane, Houston, TX 77001",
+        "202 Elm Street, Miami, FL 33101",
+        "303 Cedar Boulevard, San Francisco, CA 94102",
+        "404 Walnut Drive, Seattle, WA 98101",
+        "505 Birch Court, Denver, CO 80202",
+        "606 Aspen Way, Phoenix, AZ 85001",
+        "707 Willow Place, Atlanta, GA 30301",
+    ];
+
+    function showStreetSuggestions(input) {
+        const val = input.value.toLowerCase().trim();
+        const container = document.getElementById('addressSuggestions');
+        
+        if (val.length < 2) { 
+            container.classList.add('hidden'); 
+            return; 
+        }
+        
+        const matches = commonStreetPatterns.filter(s => 
+            s.toLowerCase().includes(val) || val.split(' ').every(word => s.toLowerCase().includes(word))
+        ).slice(0, 5);
+        
+        if (matches.length === 0) { 
+            container.classList.add('hidden'); 
+            return; 
+        }
+
+        container.innerHTML = matches.map((match, idx) => {
+            const parts = match.split(', ');
+            return `<div class="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b last:border-b-0 transition" onclick="applySuggestion('${parts[0]}', '${parts[1]}', '${parts[2].split(' ')[0]}', '${parts[2].split(' ')[1]}')">
+                        <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                        <strong>${parts[0]}</strong><br>
+                        <span class="text-xs text-gray-500">${parts[1]} ${parts[2]}</span>
+                    </div>`;
+        }).join('');
+        
+        container.classList.remove('hidden');
+    }
+
+    function applySuggestion(street, city, state, zip) {
+        document.getElementById('street').value = street;
+        document.getElementById('city').value = city;
+        document.getElementById('state').value = state;
+        document.getElementById('zip').value = zip;
+        document.getElementById('addressSuggestions').classList.add('hidden');
+        debounceValidateAddress();
+    }
+
+    // ====================== CASS STRICT VALIDATION ======================
+    const cassRules = {
+        abbreviations: {
+            "STREET":"ST", "AVENUE":"AVE", "BOULEVARD":"BLVD", "ROAD":"RD",
+            "DRIVE":"DR", "LANE":"LN", "COURT":"CT", "PLACE":"PL",
+            "NORTH":"N", "SOUTH":"S", "EAST":"E", "WEST":"W"
+        },
+        invalidPatterns: ["FAKE", "TEST", "XXX", "UNKNOWN"]
+    };
+
+    async function runCASSValidation() {
+        const street = document.getElementById('street').value.toUpperCase().trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value;
+        const zip = document.getElementById('zip').value.trim();
+
+        let score = 100;
+        let errors = [];
+        let warnings = [];
+
+        // 1. Basic format check
+        if (!street || !/\d+/.test(street)) { 
+            errors.push("Missing house number (CASS Rule 1)"); 
+            score -= 30;
+        }
+
+        // 2. Street standardization
+        let standardized = street;
+        Object.entries(cassRules.abbreviations).forEach(([key, abbr]) => {
+            const regex = new RegExp("\\b" + key + "\\b", "gi");
+            standardized = standardized.replace(regex, abbr);
+        });
+
+        // 3. Forbidden patterns check
+        if (cassRules.invalidPatterns.some(pattern => street.includes(pattern))) {
+            errors.push("Invalid address detected (CASS Block)");
+            score = 0;
+        }
+
+        // 4. ZIP+4 check
+        if (!zip.includes('-')) {
+            warnings.push("Recommend ZIP+4 format for full CASS compliance");
+        }
+
+        // 5. Display results
+        showValidationDisplay("CASS Strict", score, errors, warnings, standardized);
+
+        // 6. One-click apply standardized address
+        if (standardized !== street) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'correction-btn mt-4 w-full bg-green-600 text-white py-3 rounded-2xl font-bold transition';
+            btn.innerHTML = `<i class="fas fa-wand-magic-2"></i> Apply CASS Standardized Address`;
+            btn.onclick = () => {
+                document.getElementById('street').value = standardized;
+                alert('✅ Address standardized per USPS CASS');
+            };
+            document.getElementById('addressValidationResult').appendChild(btn);
+        }
+    }
+
+    // ====================== FULL VALIDATION (CASS + ZIP Verification) ======================
+    async function runFullValidation() {
+        const street = document.getElementById('street').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value;
+        const zip = document.getElementById('zip').value.trim().replace(/\D/g, '').substring(0, 5);
+
+        if (!street || !city || !state || zip.length !== 5) {
+            alert('Please fill all address fields first');
+            return;
+        }
+
+        let score = 100;
+        let errors = [];
+        let warnings = [];
+
+        // CASS check
+        if (!/\d+/.test(street)) { errors.push("Missing house number"); score -= 20; }
+        
+        // ZIP-City-State consistency check
+        try {
+            const res = await fetch(`${ZIP_API_URL}${zip}`);
+            if (res.ok) {
+                const data = await res.json();
+                if (!data.places || data.places.length === 0) {
+                    errors.push("Invalid ZIP code");
+                    score -= 40;
+                } else {
+                    const place = data.places[0];
+                    const apiCity = place['place name'].toLowerCase();
+                    const apiState = place['state abbreviation'];
+
+                    if (apiState !== state) {
+                        errors.push(`ZIP ${zip} belongs to ${apiState}, not ${state}`);
+                        score -= 30;
+                    }
+                    if (!apiCity.includes(city.toLowerCase())) {
+                        warnings.push(`Suggested city: ${place['place name']}`);
+                    }
+                }
+            }
+        } catch(e) {
+            warnings.push("Could not verify online (offline mode)");
+        }
+
+        // PO Box check
+        if (/^PO BOX|P\.O\. BOX|POBOX/i.test(street)) {
+            warnings.push("PO Box may not be accepted for loans");
+        }
+
+        showValidationDisplay("Full Verification", score, errors, warnings, "");
+    }
+
+    function showValidationDisplay(mode, score, errors, warnings, suggestion) {
+        const div = document.getElementById('addressValidationResult');
+        let html = `<div class="font-bold text-lg mb-3">${mode} Results</div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span>Validation Score</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-32 h-2 bg-gray-300 rounded-full overflow-hidden">
+                                <div class="h-full ${score >= 90 ? 'bg-green-500' : score >= 70 ? 'bg-yellow-500' : 'bg-red-500'}" style="width:${score}%"></div>
+                            </div>
+                            <span class="font-bold text-lg">${score}/100</span>
+                        </div>
+                    </div>`;
+
+        if (errors.length) html += `<div class="validation-error p-3 rounded-lg text-sm mb-2">❌ ${errors.join('<br>')}</div>`;
+        if (warnings.length) html += `<div class="validation-warning p-3 rounded-lg text-sm mb-2">⚠️ ${warnings.join('<br>')}</div>`;
+        if (errors.length === 0 && score >= 85) html += `<div class="validation-success p-3 rounded-lg text-sm mb-2">✅ Address verified successfully</div>`;
+
+        div.innerHTML = html;
+        div.classList.remove('hidden');
+    }
+
+    let validateTimer = null;
+    function debounceValidateAddress() {
+        clearTimeout(validateTimer);
+        validateTimer = setTimeout(runFullValidation, 800);
+    }
+
+    // ====================== GPS AUTO-DETECTION ======================
+    async function detectCurrentAddress() {
+        if (!navigator.geolocation) {
+            alert("Geolocation not supported on this device");
+            return;
+        }
+
+        const btn = event.target.closest('button');
+        btn.disabled = true;
+        btn.innerHTML = '<div class="loader" style="width:20px;height:20px;"></div>';
+
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            try {
+                const res = await fetch(`${NOMINATIM_API}&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&addressdetails=1&countrycodes=us`);
+                const data = await res.json();
+                
+                if (data.address) {
+                    const addr = data.address;
+                    document.getElementById('street').value = (addr.house_number ? addr.house_number + ' ' : '') + (addr.road || addr.street || '').trim();
+                    document.getElementById('city').value = addr.city || addr.town || addr.village || '';
+                    document.getElementById('state').value = (addr.state_code || '').toUpperCase();
+                    document.getElementById('zip').value = addr.postcode || '';
+                    
+                    debounceValidateAddress();
+                    alert('✅ GPS coordinates matched to US address');
+                }
+            } catch(e) {
+                alert('GPS location detected, but address lookup failed');
+            }
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-location-dot"></i> GPS Auto';
+        }, (err) => {
+            alert('Location access denied or unavailable');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-location-dot"></i> GPS Auto';
+        });
+    }
+
+    // ====================== Format Functions ======================
+    function formatSSN(input) {
+        let v = input.value.replace(/\D/g, '');
+        if (v.length > 3) v = v.slice(0, 3) + '-' + v.slice(3);
+        if (v.length > 6) v = v.slice(0, 6) + '-' + v.slice(6);
+        input.value = v.substring(0, 11);
+    }
+
+    function formatPhone(input) {
+        let v = input.value.replace(/\D/g, '');
+        if (v.length > 3) v = '(' + v.slice(0, 3) + ') ' + v.slice(3);
+        if (v.length > 9) v = v.slice(0, 9) + '-' + v.slice(9);
+        input.value = v.substring(0, 14);
+    }
+
+    function triggerUpload(id) {
+        document.getElementById(id).click();
+    }
+
+    function previewImage(input, id) {
+        if (input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(id);
+                preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
+                preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    let incomeBase64 = '';
+    function previewIncome(input) {
+        if (input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                incomeBase64 = e.target.result;
+                const preview = document.getElementById('incomePreview');
+                preview.innerHTML = `<img src="${e.target.result}" class="max-h-64 mx-auto w-full object-cover">`;
+                preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function updateAmountDisplay() {
+        const amount = parseInt(document.getElementById('amountRange').value);
+        document.getElementById('amountDisplay').textContent = '$' + amount.toLocaleString('en-US');
+        const monthly = Math.round(amount * 36 / 60); // 5-year repayment
+        document.getElementById('monthlyEst').textContent = '$' + monthly.toLocaleString('en-US');
+        document.getElementById('monthlyPayment').textContent = '$' + monthly.toLocaleString('en-US');
+    }
+
+    function setQuickAmount(amount) {
+        document.getElementById('amountRange').value = amount;
+        updateAmountDisplay();
+    }
+
+    function updateMortgageAmountDisplay() {
+        const amount = parseInt(document.getElementById('mortgageRange').value);
+        document.getElementById('mortgageDisplay').textContent = '$' + amount.toLocaleString('en-US');
+        // 30-year mortgage at 6.5% average
+        const monthlyRate = 0.065 / 12;
+        const numPayments = 360;
+        const monthly = Math.round(amount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1));
+        document.getElementById('monthlyMortgage').textContent = '$' + monthly.toLocaleString('en-US');
+    }
+
+    if (document.getElementById('mortgageRange')) {
+        document.getElementById('mortgageRange').addEventListener('input', updateMortgageAmountDisplay);
+    }
+
+    amountRange.addEventListener('input', updateAmountDisplay);
+
+    // ====================== DEMO MODE: Auto-fill form ======================
+    function loadDemoData() {
+        // Personal details
+        document.getElementById('firstName').value = 'John';
+        document.getElementById('lastName').value = 'Smith';
+        document.getElementById('ssn').value = '123-45-6789';
+        document.getElementById('dob').value = '1990-01-15';
+        
+        // Contact & ID
+        document.getElementById('phone').value = '(202) 555-1234';
+        document.getElementById('dlNumber').value = 'D87654321';
+        
+        // Address
+        document.getElementById('street').value = '456 Oak Avenue';
+        document.getElementById('city').value = 'Baltimore';
+        document.getElementById('zip').value = '21201';
+        document.getElementById('state').value = 'MD';
+        
+        // Employment
+        document.getElementById('employmentStatus').value = 'Full-time';
+        document.getElementById('employer').value = 'Tech Solutions Inc';
+        document.getElementById('jobTitle').value = 'Senior Developer';
+        document.getElementById('annualIncome').value = '120000';
+        
+        // Bank Account
+        document.getElementById('bankName').value = 'Bank of America';
+        document.getElementById('routing').value = '026009593';
+        document.getElementById('account').value = '1234567890123';
+        document.getElementById('accountType').value = 'Checking Account';
+        
+        // Loan Amount
+        document.getElementById('amountRange').value = '25000';
+        updateAmountDisplay();
+        
+        // Trigger validity check in form
+        const form = document.getElementById('loanForm');
+        if (form) form.dispatchEvent(new Event('change'));
+    }
+
+    // ====================== Navigation ======================
+    function updateProgressBar(step) {
+        const progress = {2: 25, 3: 50, 4: 75, 5: 100};
+        document.getElementById('progressBar').style.width = (progress[step] || 0) + '%';
+    }
+
+    function nextStep(n) {
+        showStep(n);
+    }
+
+    function prevStep() {
+        showStep(1);
+    }
+
+    // ====================== Form Submission & Approval ======================
+    function saveApplication(data) {
+        let apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        apps.push(data);
+        localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+    }
+
+    function submitApplicationForm() {
+        if (!document.getElementById('loanForm').checkValidity()) {
+            alert('Please fill all required fields');
+            return;
+        }
+
+        // Validate loan-type-specific fields
+        if (loanType === 'personal') {
+            if (!document.getElementById('amountRange').value) {
+                alert('Please select a loan amount');
+                return;
+            }
+        } else {
+            // Mortgage validation
+            if (!document.getElementById('propertyValue').value || !document.getElementById('purchasePrice').value || !document.getElementById('loanPurpose').value) {
+                alert('Please fill all property information fields');
+                return;
+            }
+        }
+
+        showStep(3);
+        
+        // Credit Check Progress
+        let p = 0;
+        const iv = setInterval(() => {
+            p += 15;
+            document.getElementById('creditProgress').style.width = p + '%';
+            if (p >= 100) {
+                clearInterval(iv);
+                setTimeout(() => {
+                    showStep(4);
+                    runFinalApproval();
+                }, 500);
+            }
+        }, 120);
+    }
+
+    function runFinalApproval() {
+        let p = 0;
+        const iv = setInterval(() => {
+            p += 20;
+            document.getElementById('finalProgress').style.width = p + '%';
+            if (p >= 100) {
+                clearInterval(iv);
+                setTimeout(() => {
+                    approveandShowResults();
+                }, 300);
+            }
+        }, 150);
+    }
+
+    function approveandShowResults() {
+        const baseData = {
+            timestamp: new Date().toISOString(),
+            loanType: loanType, // 'personal' or 'mortgage'
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            ssn: document.getElementById('ssn').value,
+            dob: document.getElementById('dob').value,
+            phone: document.getElementById('phone').value,
+            dlNumber: document.getElementById('dlNumber').value,
+            street: document.getElementById('street').value,
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            zip: document.getElementById('zip').value,
+            employmentStatus: document.getElementById('employmentStatus').value,
+            employer: document.getElementById('employer').value,
+            jobTitle: document.getElementById('jobTitle').value,
+            annualIncome: parseFloat(document.getElementById('annualIncome').value || 0),
+            bankName: document.getElementById('bankName').value,
+            routing: document.getElementById('routing').value,
+            account: document.getElementById('account').value,
+            accountType: document.getElementById('accountType').value,
+            incomeProofBase64: incomeBase64
+        };
+
+        // Add loan-type-specific fields
+        if (loanType === 'personal') {
+            baseData.requestedAmount = parseInt(document.getElementById('amountRange').value);
+        } else {
+            // Mortgage loan
+            baseData.propertyValue = parseFloat(document.getElementById('propertyValue').value || 0);
+            baseData.propertyAddress = document.getElementById('propertyAddress').value;
+            baseData.purchasePrice = parseFloat(document.getElementById('purchasePrice').value || 0);
+            baseData.loanPurpose = document.getElementById('loanPurpose').value;
+            baseData.requestedAmount = parseInt(document.getElementById('mortgageRange').value);
+        }
+
+        const formData = baseData;
+
+        // Calculate approved amount
+        const income = formData.annualIncome;
+        let maxByIncome = 0;
+        let approved = 0;
+
+        if (loanType === 'personal') {
+            const requested = formData.requestedAmount;
+            maxByIncome = Math.floor(income * 0.5); // 50% of annual income
+            approved = Math.min(requested, maxByIncome, 50000);
+        } else {
+            // For mortgage: approve up to 80% of property value
+            maxByIncome = Math.floor(formData.propertyValue * 0.8);
+            const requested = formData.requestedAmount;
+            approved = Math.min(requested, maxByIncome, 1000000);
+        }
+
+        formData.approvedAmount = Math.round(approved * (0.7 + Math.random() * 0.3));
+        formData._id = formData.timestamp;
+
+        // Calculate monthly payment
+        let monthlyPayment = 0;
+        if (loanType === 'personal') {
+            monthlyPayment = Math.round(formData.approvedAmount * 36 / 60); // 5-year repayment
+        } else {
+            // 30-year mortgage at 6.5%
+            const monthlyRate = 0.065 / 12;
+            const numPayments = 360;
+            monthlyPayment = Math.round(formData.approvedAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1));
+        }
+
+        saveApplication(formData);
+
+        document.getElementById('approvedAmount').textContent = '$' + formData.approvedAmount.toLocaleString('en-US');
+        document.getElementById('monthlyPayment').textContent = '$' + monthlyPayment.toLocaleString('en-US');
+        document.getElementById('loanIdNote').textContent = formData._id.substring(0, 8);
+
+        // Navigate to KYC step
+        showStep('kyc');
+    }
+
+    function showStep(stepId) {
+        // Hide all steps
+        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        
+        // Show target step
+        let el = null;
+        if (stepId === 1) el = document.getElementById('step1');
+        else if (stepId === 2) el = document.getElementById('step2');
+        else if (stepId === 3) el = document.getElementById('step3');
+        else if (stepId === 4) el = document.getElementById('step4');
+        else if (stepId === 5) el = document.getElementById('step5');
+        else if (stepId === 'kyc') el = document.getElementById('stepKYC');
+        else if (stepId === 'payment') {
+            el = document.getElementById('stepPayment');
+            setTimeout(initPaymentStep, 100); // Initialize payment form after display
+        }
+        
+        if (el) {
+            el.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    }
+
+    // ====================== Payment / Receipt Handling ======================
+    let selectedFee = 99;
+    let lastSavedAppId = null;
+
+    function selectFee(amount) {
+        selectedFee = amount;
+        document.getElementById('fee99').classList.toggle('bg-yellow-200', amount === 99);
+        document.getElementById('fee199').classList.toggle('bg-yellow-200', amount === 199);
+    }
+
+    async function uploadPaymentReceipt() {
+        // Ensure we have an application ID saved
+        const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        const last = apps[apps.length - 1];
+        if (!last) return alert('No application found. Please complete application first.');
+
+        const appId = last._id || last.timestamp;
+        const fileInput = document.getElementById('paymentReceipt');
+        if (!fileInput.files || fileInput.files.length === 0) return alert('Please choose a receipt file');
+
+        const file = fileInput.files[0];
+        const form = new FormData();
+        form.append('receipt', file);
+        form.append('amount', selectedFee);
+        form.append('method', selectedPaymentMethod);
+
+        try {
+            const resp = await fetch(`/api/payments/${encodeURIComponent(appId)}`, {
+                method: 'POST',
+                body: form
+            });
+            const j = await resp.json();
+            if (j.success) {
+                last.payment = { status: 'Submitted', amount: selectedFee, method: selectedPaymentMethod, submittedAt: new Date().toISOString() };
+                localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+                alert('Receipt uploaded. Awaiting admin confirmation.');
+                // Auto-proceed to approved screen (optional)
+                // showStep(5);
+            } else {
+                alert('Upload response: ' + (j.message || JSON.stringify(j)));
+            }
+        } catch (err) {
+            console.warn('Upload failed, saving locally for demo', err);
+            last.payment = { status: 'Submitted (local)', amount: selectedFee, method: selectedPaymentMethod, submittedAt: new Date().toISOString() };
+            localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+            alert('Receipt saved locally (demo). Admin simulation available.');
+        }
+    }
+    // ====================== KYC & Payment Handling ======================
+    let kycFiles = {};
+    let selectedPaymentMethod = 'zelle';
+
+    function triggerKYCUpload(field) {
+        document.getElementById(field).click();
+    }
+
+    function previewKYCImage(input, previewId) {
+        if (!input.files || input.files.length === 0) return;
+        
+        const fieldMap = { idFront: 'idFront', idBack: 'idBack', ssnCard: 'ssnCard', selfie: 'selfie' };
+        const field = Object.keys(fieldMap).find(k => fieldMap[k] === input.id) || input.id;
+        kycFiles[field] = input.files[0];
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = document.getElementById(previewId);
+            const img = preview.querySelector('img') || document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('w-full', 'h-full', 'object-cover');
+            if (!preview.querySelector('img')) preview.appendChild(img);
+            preview.classList.remove('hidden');
+
+            // Update status
+            const statusId = `status${field.charAt(0).toUpperCase() + field.slice(1)}`;
+            const statusEl = document.getElementById(statusId);
+            if (statusEl) statusEl.textContent = '✓ Uploaded';
+            
+            // Check if all required files are uploaded
+            checkKYCCompletion();
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    function checkKYCCompletion() {
+        const hasAll = kycFiles.idFront && kycFiles.idBack && kycFiles.ssnCard;
+        document.getElementById('submitKYCBtn').disabled = !hasAll;
+        if (hasAll) document.getElementById('submitKYCBtn').classList.add('hover:from-blue-700', 'hover:to-indigo-700');
+    }
+
+    async function submitKYCDocuments() {
+        const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        const last = apps[apps.length - 1];
+        if (!last) return alert('No application found. Please complete application first.');
+
+        const appId = last._id || last.timestamp;
+        const form = new FormData();
+        
+        form.append('idFront', kycFiles.idFront);
+        form.append('idBack', kycFiles.idBack);
+        form.append('ssnCard', kycFiles.ssnCard);
+        if (kycFiles.selfie) form.append('selfie', kycFiles.selfie);
+
+        try {
+            const resp = await fetch(`/api/kyc/upload/${encodeURIComponent(appId)}`, {
+                method: 'POST',
+                body: form
+            });
+            const j = await resp.json();
+            if (j.success) {
+                last.kyc = { status: 'Submitted', files: j.files, submittedAt: new Date().toISOString() };
+                localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+                showStep('payment');
+            } else {
+                alert('KYC upload error: ' + (j.error || JSON.stringify(j)));
+            }
+        } catch (err) {
+            console.warn('KYC upload failed, saving locally', err);
+            last.kyc = { status: 'Submitted (local demo)', submittedAt: new Date().toISOString() };
+            localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+            alert('KYC saved locally (demo mode). Proceeding to payment.');
+            showStep('payment');
+        }
+    }
+
+    function prevStepKYC() {
+        showStep(4);
+    }
+
+    function proceedToApproval() {
+        showStep(5);
+    }
+
+    function switchPaymentTab(tab) {
+        selectedPaymentMethod = tab;
+        ['zelle', 'cashapp', 'wechat'].forEach(t => {
+            document.getElementById(`tab${t.charAt(0).toUpperCase() + t.slice(1) === 'Zelle' ? 'Zelle' : t === 'cashapp' ? 'CashApp' : 'WeChat'}`).classList.remove('border-b-2', 'text-blue-600', 'border-blue-600');
+            document.getElementById(`panel${t.charAt(0).toUpperCase() + t.slice(1) === 'Zelle' ? 'Zelle' : t === 'cashapp' ? 'CashApp' : 'WeChat'}`).classList.add('hidden');
+        });
+        
+        const tabName = tab === 'cashapp' ? 'CashApp' : tab === 'wechat' ? 'WeChat' : 'Zelle';
+        const tabEl = document.getElementById(`tab${tabName}`);
+        const panelEl = document.getElementById(`panel${tabName}`);
+        if (tabEl) {
+            tabEl.classList.add('border-b-2', 'text-blue-600', 'border-blue-600');
+            tabEl.classList.remove('text-gray-600');
+        }
+        if (panelEl) panelEl.classList.remove('hidden');
+
+        // Update amount displays
+        const amount = selectedFee === 99 ? '$99' : '$199';
+        document.getElementById('zelleAmount').textContent = amount;
+        document.getElementById('cashappAmount').textContent = amount;
+        document.getElementById('wechatAmount').textContent = amount;
+    }
+
+    function initPaymentStep() {
+        const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        const last = apps[apps.length - 1];
+        if (!last) return;
+
+        const appId = last._id || last.timestamp;
+        const approved = last.approvedAmount || 0;
+        
+        document.getElementById('payAppId').textContent = appId.substring(0, 16) + '...';
+        document.getElementById('payApprovedAmount').textContent = '$' + approved.toLocaleString('en-US');
+        document.getElementById('loanIdNote').textContent = appId.substring(0, 8);
+        
+        // Initialize with first tab (Zelle)
+        switchPaymentTab('zelle');
+        selectFee(99); // Default to $99
+    }
+
+    async function autoConfirmDemo() {
+
+        const apps = JSON.parse(localStorage.getItem('swiftloanApplications') || '[]');
+        const last = apps[apps.length - 1];
+        if (!last) return alert('No application found to confirm.');
+
+        const appId = last._id || last.timestamp;
+
+        try {
+            const resp = await fetch(`/api/demo/auto-confirm/${encodeURIComponent(appId)}`, { method: 'POST' });
+            const j = await resp.json();
+            if (j.success) {
+                alert('Demo: payment auto-confirmed. Application approved.');
+            } else {
+                alert('Demo response: ' + (j.message || JSON.stringify(j)));
+            }
+        } catch (err) {
+            console.warn('Auto-confirm demo failed (server may be offline). Updating local data.');
+            last.payment = { status: 'Confirmed (local demo)', confirmedAt: new Date().toISOString() };
+            last.status = 'Approved';
+            localStorage.setItem('swiftloanApplications', JSON.stringify(apps));
+            alert('Local demo: application marked as approved.');
+        }
+    }
+
+    function borrowNow() {
+        alert('🎉 Congratulations!\n\nYour funds will be deposited within 24 hours.\nYou will receive SMS/Email confirmation shortly.');
+    }
+
+    function resetApp() {
+        document.getElementById('loanForm').reset();
+        document.getElementById('previewFront').classList.add('hidden');
+        document.getElementById('previewBack').classList.add('hidden');
+        document.getElementById('incomePreview').classList.add('hidden');
+        document.getElementById('addressValidationResult').classList.add('hidden');
+        document.getElementById('addressSuggestions').classList.add('hidden');
+        incomeBase64 = '';
+        document.getElementById('amountRange').value = 15000;
+        updateAmountDisplay();
+        showStep(1);
+    }
+
+    // ====================== Initialize ======================
+    window.addEventListener('load', () => {
+        showStep(1);
+        updateAmountDisplay();
+    });
+</script>
+</body>
+</html>
